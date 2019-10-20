@@ -6,6 +6,8 @@ import Button from 'react-bootstrap/Button';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
+import Dropdown from 'react-bootstrap/Dropdown';
+
 
 class App extends Component {
   render() {
@@ -19,14 +21,26 @@ class App extends Component {
             <Nav.Link href="#Products">Products</Nav.Link>
             <Nav.Link href="#News">News</Nav.Link>
           </Nav>
-          <ButtonToolbar >
-            <Button variant="outline-light" className="mr-1">Sign In</Button>
+          <ButtonToolbar>
+            <Button variant="primary" className="">Sign In</Button>
 
-            <Button variant="outline-light" className="mr-1">Sign Up</Button>
+            <Button variant="primary" className="">Sign Up</Button>
 
-            <Button variant="outline-light">
-              <i class="far fa-user-circle"></i>
-            </Button>
+            <Dropdown className="mr-auto">
+
+              <Dropdown.Toggle>
+                <Button variant="primary">
+                  <i class="far fa-user-circle"></i>
+                </Button>
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">Change Password</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Sign Out</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+
           </ButtonToolbar>
         </Container>
       </Navbar>
