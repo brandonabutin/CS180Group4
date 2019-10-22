@@ -7,7 +7,10 @@ import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
 import Dropdown from 'react-bootstrap/Dropdown';
-
+import InputGroup from 'react-bootstrap/InputGroup';
+import FormControl from 'react-bootstrap/FormControl';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 class App extends Component {
   render() {
@@ -52,6 +55,24 @@ class App extends Component {
         </p>
 
       </Jumbotron>
+
+      <Container>
+        <Row>
+          <Col m="auto">
+            <InputGroup className="px-5">
+              <FormControl
+                placeholder="Search crypto"
+                aria-label = "Search crypto"
+              />
+              <InputGroup.Append>
+                <Button variant="primary">
+                  <i class="fas fa-search"></i>
+                </Button>
+              </InputGroup.Append>
+            </InputGroup>
+          </Col>
+        </Row>
+      </Container>
 
     </div>);
   }
