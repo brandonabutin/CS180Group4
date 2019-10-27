@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import './App.css';
+import { Switch, Route, withRouter } from 'react-router-dom'
+
+import Main from './Main'
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
@@ -13,6 +16,18 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 class App extends Component {
+
+
+  constructor(props){
+    super(props)
+
+    this.changePassword = this.changePassword.bind(this)
+  }
+
+  changePassword(){
+    this.props.history.push('/changePassword')
+  }
+
   render() {
     return (<div id="parent">
 
@@ -39,7 +54,7 @@ class App extends Component {
 
               <Dropdown.Menu>
                 <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Change Password</Dropdown.Item>
+                <Dropdown.Item as="button" onClick = {this.changePassword}>Change Password</Dropdown.Item>
                 <Dropdown.Item href="#/action-3">Sign Out</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
@@ -78,4 +93,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);
