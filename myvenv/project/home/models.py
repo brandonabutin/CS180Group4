@@ -4,31 +4,30 @@ from collections import OrderedDict
 from operator import itemgetter
 
 
+#helper function
+def fetch_cryptocurrecies_call():
+    coinmarketcap_variable = Market()
+    return coinmarketcap_variable.listings()
+
+#helper function
+def fetch_cryptocurrecies_call_sorted(fiatCurrency,sortingkey ='rank'):
+    coinmarketcap_variable = Market()
+    return coinmarketcap_variable.ticker(start = 0, limit = 100,convert = fiatCurrency,sort = sortingkey)
+
+
 class Home(models.Model):
     name = models.CharField(max_length=100, default='')
     currencyName = models.CharField(max_length=100, default='')
     currencyPrice = models.CharField(max_length=50, default='')
 
-    #helper function
-    def fetch_cryptocurrecies_call():
-        coinmarketcap_variable = Market()
-        return coinmarketcap_variable.listings()
-
-    #helper function
-    def fetch_cryptocurrecies_call_sorted(fiatCurrency,sortingkey ='rank'):
-        coinmarketcap_variable = Market()
-        return coinmarketcap_variable.ticker(start = 0, limit = 100,convert = fiatCurrency,sort = sortingkey)
-
-    #create a list of cryptocurrencies with just names
-    def fetch_all_crypto_currencies_by_names(fiatCurrency):
+    def fetch_all_crypto_currencies_by_names(self, fiatCurrency):
         sortedCryptocurrencyList = fetch_cryptocurrecies_call_sorted(fiatCurrency)
         CryptocurrencyNameList = []
         for x in sortedCryptocurrencyList['data']:
             CryptocurrencyNameList.append(sortedCryptocurrencyList['data'][x]['name'])
         return CryptocurrencyNameList
 
-    #returns a dictionary with sorted prices
-    def fetch_all_crypto_currencies_by_price(fiatCurrency):
+    def fetch_all_crypto_currencies_by_price(self, fiatCurrency):
         name = ''
         price = 0
         cryptocurrencyDictionary = {}
@@ -40,8 +39,7 @@ class Home(models.Model):
         cryptocurrencyDictionarySorted = OrderedDict(sorted(cryptocurrencyDictionary.items(), key=itemgetter(1)))
         return cryptocurrencyDictionarySorted
 
-    #create a function that fetches all the data and assigns it to a dictionary and sorted by ascending percentage changes
-    def fetch_all_crypto_currencies_by_percentage_change_24h(fiatCurrency):
+    def fetch_all_crypto_currencies_by_percentage_change_24h(self, fiatCurrency):
         name = ''
         percentage_change = 0.0
         cryptocurrencyDictionary = {}
@@ -53,8 +51,7 @@ class Home(models.Model):
         cryptocurrencyDictionarySorted = OrderedDict(sorted(cryptocurrencyDictionary.items(), key=itemgetter(1)))
         return cryptocurrencyDictionarySorted
 
-    #create a function that searches for all valid cryptocurrencies and ALL of it's data of a certain cryptocurrency
-    def fetch_all_crypto_currencies_data(fiatCurrency):
+    def fetch_all_crypto_currencies_data(self, fiatCurrency):
         name = ''
         percentage_change = 0.0
         market_cap = 0.0
@@ -79,16 +76,15 @@ class Home(models.Model):
             cryptocurrencyDictionaryEntryList.append(cryptocurrencyDictionaryEntry)
         return cryptocurrencyDictionaryEntryList
 
-    #search function for getting data about a SINGLE cryptocurrency
-    def getDataSingleCryptoCurrency(cryptocurrencyname,fiatCurrency):
-        cryptoDictionary = fetch_all_crypto_currencies_data(fiatCurrency)
+    def getDataSingleCryptoCurrency(self, cryptocurrencyname, fiatCurrency):
+        cryptoDictionary = self.fetch_all_crypto_currencies_data(fiatCurrency)
         for x in cryptoDictionary:
             if x['name'] == cryptocurrencyname:
                 return x
         return 'Cryptocurrency Not Found'
 
     def publish(self):
-        currencyDict = getDataSingleCryptoCurrency('Bitcoin','USD')
+        currencyDict = self.getDataSingleCryptoCurrency('Bitcoin','USD')
         if currencyDict:
             self.currencyName = list(currencyDict)[0]
             self.currencyPrice = currencyDict[self.currencyName]
