@@ -1,5 +1,11 @@
 /bin/
 /lib/
 /include/
-djangorestframework-3.10.3-py3-none-any.whl
 /node_modules/
+*.pyc
+*~
+__pycache__
+myvenv
+db.sqlite3
+/static
+.DS_Store

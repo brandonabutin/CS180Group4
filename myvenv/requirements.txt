@@ -1,4 +1,11 @@
+certifi==2019.9.11
+chardet==3.0.4
+coinmarketcap==5.0.3
 Django==2.2.6
 djangorestframework==3.10.3
+idna==2.8
 pytz==2019.3
+requests==2.22.0
+requests-cache==0.5.2
 sqlparse==0.3.0
+urllib3==1.25.6
