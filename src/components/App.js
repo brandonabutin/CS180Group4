@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
-import { Switch, Route, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
-import Main from './Main'
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
@@ -22,10 +21,18 @@ class App extends Component {
     super(props)
 
     this.changePassword = this.changePassword.bind(this)
+    this.signIn = this.signIn.bind(this)
+    this.signUp = this.signUp.bind(this)
   }
 
   changePassword(){
     this.props.history.push('/changePassword')
+  }
+  signIn(){
+    this.props.history.push('/signIn')
+  }
+  signUp(){
+    this.props.history.push('/signUp')
   }
 
   render() {
@@ -40,9 +47,9 @@ class App extends Component {
             <Nav.Link href="#News">News</Nav.Link>
           </Nav>
           <ButtonToolbar>
-            <Button variant="primary" className="">Sign In</Button>
+            <Button variant="primary" onClick = {this.signIn}>Sign In</Button>
 
-            <Button variant="primary" className="">Sign Up</Button>
+            <Button variant="primary" onClick = {this.signUp}>Sign Up</Button>
 
             <Dropdown className="mr-auto">
 

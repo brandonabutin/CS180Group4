@@ -11,7 +11,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 
-class ChangePassword extends Component {
+class SignIn extends Component {
 
   constructor(props) {
     super(props)
@@ -24,7 +24,7 @@ class ChangePassword extends Component {
   }
   render() {
     return (<div>
-      < Navbar bg="primary" variant="dark" sticky="top">
+      <Navbar bg="primary" variant="dark" sticky="top">
         <Container>
           <Navbar.Brand onClick = {this.done}>180Crypto</Navbar.Brand>
           <Nav className="mr-auto">
@@ -59,23 +59,23 @@ class ChangePassword extends Component {
             <Card className="mx-auto" border="primary" style={{
                 width: '35rem'
               }}>
-              <Card.Header>Change Password</Card.Header>
+              <Card.Header>Sign In</Card.Header>
               <Card.Body>
                 < Form >
                   <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Current Password</Form.Label>
-                    <Form.Control type="password" placeholder="Current password"/>
+                    <Form.Label>Email </Form.Label>
+                    <Form.Control type="email" placeholder="Email"/>
 
                   </Form.Group>
 
                   <Form.Group controlId="formBasicPassword">
-                    <Form.Label>New Password</Form.Label>
-                    <Form.Control type="password" placeholder="New Password"/>
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control type="password" placeholder="Password"/>
                     <Form.Text className="text-muted"></Form.Text>
                   </Form.Group>
 
                   <Button variant="primary" type="submit" onClick={this.done}>
-                    Submit
+                    Sign In
                   </Button>
                   < /Form></Card.Body>
                 </Card>
@@ -88,4 +88,4 @@ class ChangePassword extends Component {
   }
 }
 
-export default ChangePassword
+export default SignIn
