@@ -45,7 +45,6 @@ class SignIn extends Component {
               <Dropdown.Menu>
                 <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
                 <Dropdown.Item as="button" onClick={this.changePassword}>Change Password</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Sign Out</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
 

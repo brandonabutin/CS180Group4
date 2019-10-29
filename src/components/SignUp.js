@@ -3,9 +3,7 @@ import './App.css';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
-import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Container from 'react-bootstrap/Container';
-import Dropdown from 'react-bootstrap/Dropdown';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -32,24 +30,7 @@ class SignUp extends Component {
             <Nav.Link href="#Products">Products</Nav.Link>
             <Nav.Link href="#News">News</Nav.Link>
           </Nav>
-          <ButtonToolbar>
 
-            <Dropdown className="mr-auto">
-
-              <Dropdown.Toggle>
-                <Button variant="primary">
-                  <i class="far fa-user-circle"></i>
-                </Button>
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
-                <Dropdown.Item as="button" onClick={this.changePassword}>Change Password</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Sign Out</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-
-          </ButtonToolbar>
         </Container>
       </Navbar>
       <Container className="passwordCard">
