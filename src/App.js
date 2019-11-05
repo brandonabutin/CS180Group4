@@ -1,3 +1,4 @@
+
 import React, {Component} from 'react';
 import './App.css';
 import { withRouter } from 'react-router-dom'
@@ -9,22 +10,75 @@ import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
 import Dropdown from 'react-bootstrap/Dropdown';
+import Table1 from './components/Table1';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import firebase, { auth, provider } from './firebase.js';
+
+
+var data = [
+{id: 'BitCoin', name: '$$$', value: '.07'},
+  {id: 'Etherium' , name: '$$$', value: '-.05'},
+  {id: 'LiteCoin', name: '$$$', value: '.02'}
+]
+
+
+
+
+
+function googleLogin(){
+  const provider = new firebase.auth.GoogleAuthProvider();
+
+  firebase.auth().signInWithPopup(provider)
+    .then(result => {
+        const user = result.user;
+        document.write('Hello ${data.displayName}');
+    })
+    .catch(console.log)
+}
 
 class App extends Component {
 
-
-  constructor(props){
-    super(props)
-
-    this.changePassword = this.changePassword.bind(this)
-    this.signIn = this.signIn.bind(this)
-    this.signUp = this.signUp.bind(this)
+  constructor() {
+    super();
+    this.state = {
+      currentItem: '',
+      username: '',
+      currency:[],
+      items: [],
+      user: null,
+      USD:"todo ",
+      USD2:''
+    }
+    this.login = this.login.bind(this);
+      this.logout = this.logout.bind(this);
+      this.changePassword = this.changePassword.bind(this)
+      this.signIn = this.signIn.bind(this)
+      this.signUp = this.signUp.bind(this)
   }
 
+  handleChange(e) {
+  /* ... */
+  }
+  logout() {
+    auth.signOut()
+      .then(() => {
+        this.setState({
+          user: null
+        });
+      });
+  }
+  login() {
+    auth.signInWithPopup(provider)
+      .then((result) => {
+        const user = result.user;
+        this.setState({
+          user
+        });
+      });
+  }
   changePassword(){
     this.props.history.push('/changePassword')
   }
@@ -35,8 +89,49 @@ class App extends Component {
     this.props.history.push('/signUp')
   }
 
+  //uncomment this later, maintain login through refresh
+  /*
+  componentDidMount() {
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      this.setState({ user });
+    }
+  });
+}
+*/
+
+  componentDidMount() {
+    fetch('https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,JPY,EUR')
+      .then(response => {
+        return response.json();
+      }).then(result => {
+        console.log(JSON.stringify(result))
+        console.log(JSON.stringify(result.USD))
+        const USD2 = result.USD2
+        this.setState({
+          currency:result,
+          USD:result.USD,
+          USD2
+        });
+      });
+  }
+
+
+
   render() {
-    return (<div id="parent">
+    const display = this.USD;
+    console.log(JSON.stringify(display));
+    console.log(JSON.stringify(this.currency));
+    console.log(JSON.stringify(this.props.USD));
+    console.log(this.props.USD);
+    console.log("test");
+    console.log(this.props.USD2);
+    return (
+
+
+      <div id="parent">
+
+
 
       <Navbar bg="primary" variant="dark" sticky="top">
         <Container>
@@ -47,25 +142,29 @@ class App extends Component {
             <Nav.Link href="#News">News</Nav.Link>
           </Nav>
           <ButtonToolbar>
-            <Button variant="primary" onClick = {this.signIn}>Sign In</Button>
-
-            <Button variant="primary" onClick = {this.signUp}>Sign Up</Button>
-
+           {this.state.user ?
+            <Button variant="primary" className="" onClick={this.signIn}>Sign Out</Button>
+            :
+            <Button variant="primary" className="" onClick={this.signUp}>Sign In</Button>
+           }
+           {this.state.user ?
             <Dropdown className="mr-auto">
 
               <Dropdown.Toggle>
                 <Button variant="primary">
-                  <i class="far fa-user-circle"></i>
+                  <img src={this.state.user.photoURL} height="32" width="32"/>
                 </Button>
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
                 <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
-                <Dropdown.Item as="button" onClick = {this.changePassword}>Change Password</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Sign Out</Dropdown.Item>
+                <Dropdown.Item href="#/action-2" onClick = {this.changePassword}>Change Password</Dropdown.Item>
+                <Dropdown.Item href="#/action-3" onClick={this.logout}>Sign Out</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
-
+            :
+            <div></div>
+          }
           </ButtonToolbar>
         </Container>
       </Navbar>
@@ -78,7 +177,7 @@ class App extends Component {
 
       </Jumbotron>
 
-      <Container>
+      {<Container>
         <Row>
           <Col m="auto">
             <InputGroup className="px-5">
@@ -94,10 +193,52 @@ class App extends Component {
             </InputGroup>
           </Col>
         </Row>
-      </Container>
+      </Container>}
+
+
+      <div className="App">
+        <p className="Table-header">Coin Listings</p>
+        <Table1 data={data}/>
+      </div>
+
+
+      <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">{this.currency}</th>
+      <th scope="col">{this.curreny}</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>{this.USD}</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
+
 
     </div>);
+
   }
 }
+
+
 
 export default withRouter(App);

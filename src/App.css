@@ -21,10 +21,6 @@
   color: #09d3ac;
 }
 
-html, body {
-  height: 100%;
-}
-
 .jumbotron
 {
 background-color: #007bff;
@@ -34,16 +30,18 @@ background-color: #007bff;
   display: block;
 }
 
-.passwordCard
-{
-
-background-color: #007bff;
-height: 100vh;
-max-width: 100%;
-max-height: 100%;
-display:flex;
-align-items:center;
+.jumbotron-div{
+      
+              background-color: white;
+              padding: 20px;
+              
 }
 
-.card{
-}
+.test-div {  background-color: lightgreen;
+              border-style: solid;
+              border-color: green; 
+              border-radius: 5px;
+              padding: 5px}
+.row-margin-10 { margin-top: 1.0em; }
+.row-margin-20 { margin-top: 2.0em; }
+.row-margin-30 { margin-top: 3.0em; }

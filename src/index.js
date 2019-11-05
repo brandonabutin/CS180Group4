@@ -1,19 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, BrowserRouter as Router } from 'react-router-dom'
 import './index.css';
+import { Route, BrowserRouter as Router } from 'react-router-dom'
+
+import * as serviceWorker from './serviceWorker';
 import App from './components/App';
 import ChangePassword from './components/ChangePassword';
 import signIn from './components/SignIn';
 import signUp from './components/SignUp';
-
-import * as serviceWorker from './serviceWorker';
+import Table from './components/Table1';
 
 
 const routing = (
   <Router>
     <div>
       <Route exact path="/" component={App} />
+      <Route path="/" component={Table} />
       <Route path="/changePassword" component={ChangePassword} />
       <Route path="/signIn" component={signIn} />
       <Route path="/signUp" component={signUp} />
