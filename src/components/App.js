@@ -11,6 +11,7 @@ import ChangePassword from './ChangePassword';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import LandingPage from './LandingPage';
+import News from './News';
 
 
 
@@ -30,6 +31,7 @@ class App extends Component {
           <Route path = "/signIn" component = {SignIn}/>
           <Route path = "/changePassword" component = {ChangePassword}/>
           <Route path = "/signUp" component = {SignUp}/>
+          <Route path = "/news" component = {News}/>
 
 
         </Switch>
