@@ -25,9 +25,6 @@ class Table1 extends Component {
           <TableHeaderColumn dataField='name' >
             USD:
           </TableHeaderColumn>
-          <TableHeaderColumn dataField='value'>
-            EUR:
-          </TableHeaderColumn>
         </BootstrapTable>
       </div>
     );

@@ -13,15 +13,9 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Table1 from './Table1';
 import firebase, { auth, provider } from './firebase.js';
+import ListButton from './ListButton'
 
-
-var data = [
-{id: 'BitCoin', name: '$$$', value: '.07'},
-  {id: 'Etherium' , name: '$$$', value: '-.05'},
-  {id: 'LiteCoin', name: '$$$', value: '.02'}
-]
 
 function googleLogin(){
 const provider = new firebase.auth.GoogleAuthProvider();
@@ -177,42 +171,8 @@ class LandingPage extends Component{
 
       <div className="App">
         <p className="Table-header">Coin Listings</p>
-        <Table1 data={data}/>
+        <ListButton/>
       </div>
-
-      <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">{this.currency}</th>
-      <th scope="col">{this.curreny}</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>{this.USD}</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
 
     </div>
   );
