@@ -21,7 +21,6 @@ class ListButton extends React.Component {
         showComponent:true,
         sorting_ascending:!this.state.sorting_ascending,
     });
-    console.log(this.state.sorting_ascending);
   }
 
   render() {
@@ -56,10 +55,17 @@ class Displaylist extends Component{
   }
 
   renderCurrency(currency,index){
-      return(
+    //console.log(currency.raw_data)
+    //console.log(currency.display_data)
+    return(
     <tr key={index} >
-     <td><Link to="/cryptocurrency">{currency.name}</Link></td>
-      <td>{currency.priceUSD}</td>
+     <td><Link to= {{pathname:"/cryptocurrency",
+        state:{currencyname:currency.name,
+        currency_raw_data: currency.raw_data,
+        currecy_display_data: currency.display_data,
+        imageurl:currency.imgurl,
+     }}}>{currency.name}</Link></td>
+      <td>${currency.priceUSD}</td>
     </tr>   
       )
   }
@@ -72,20 +78,21 @@ class Displaylist extends Component{
       })
   }
   render(){
-    console.log("Check",this.state.sorting)
     cryptocurrencyobjectlist = [] 
     for(let value in this.state.listings){
        var cryptoObject= {};
        cryptoObject['name'] = this.state.listings[value].CoinInfo.FullName;
        cryptoObject['priceUSD'] = this.state.listings[value].RAW.USD.PRICE;
+       cryptoObject['display_data'] = this.state.listings[value].DISPLAY.USD;
+       cryptoObject['raw_data']= this.state.listings[value].RAW.USD;
+       cryptoObject['imgurl'] = this.state.listings[value].DISPLAY.USD.IMAGEURL;
        cryptocurrencyobjectlist.push(cryptoObject)
     }
+    console.log(cryptocurrencyobjectlist)
     if(this.state.sorting === "ascending"){
-      console.log("Create Ascending list");
       cryptocurrencyobjectlist.sort((a, b) => (a.priceUSD < b.priceUSD) ? -1 : 1)
       this.state.sorting = "descending"
     }else if(this.state.sorting === "descending"){
-      console.log("Create Descending list")
       cryptocurrencyobjectlist.sort((a, b) => (a.priceUSD < b.priceUSD) ? 1 : -1)
       this.state.sorting = "ascending"
     }
