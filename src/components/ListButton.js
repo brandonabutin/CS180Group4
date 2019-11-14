@@ -3,7 +3,7 @@ import './App.css';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios'
 import Table from 'react-bootstrap/Table'
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 var cryptocurrencyobjectlist = [] ;
 
@@ -28,7 +28,7 @@ class ListButton extends React.Component {
     if(this.state.sorting_ascending){
       return (
         <div>
-         <Button onClick={this._onButtonClick}>Ascending</Button>
+         <Button className = "mb-1" style={{float: 'right'}} onClick={this._onButtonClick}>Ascending</Button>
          <Displaylist sortingprop="ascending" />
         </div>
       );
@@ -36,7 +36,7 @@ class ListButton extends React.Component {
     else{
       return (
         <div>
-          <Button onClick={this._onButtonClick}>Descending</Button>
+          <Button className = "mb-1" style={{float: 'right'}} onClick={this._onButtonClick}>Descending</Button>
           <Displaylist sortingprop="descending" />
         </div>
       );
@@ -66,7 +66,7 @@ class Displaylist extends Component{
         imageurl:currency.imgurl,
      }}}>{currency.name}</Link></td>
       <td>${currency.priceUSD}</td>
-    </tr>   
+    </tr>
       )
   }
 
@@ -78,7 +78,7 @@ class Displaylist extends Component{
       })
   }
   render(){
-    cryptocurrencyobjectlist = [] 
+    cryptocurrencyobjectlist = []
     for(let value in this.state.listings){
        var cryptoObject= {};
        cryptoObject['name'] = this.state.listings[value].CoinInfo.FullName;
@@ -98,7 +98,7 @@ class Displaylist extends Component{
     }
     //specify routes and links
     return(
-    <Table striped condensed hover>
+    <Table striped bordered condensed hover size="lg" >
   <thead>
     <tr>
       <th>Name</th>
@@ -109,7 +109,7 @@ class Displaylist extends Component{
        {cryptocurrencyobjectlist.map(this.renderCurrency)}
     </tbody>
     </Table>
-    );  
+    );
   }
 }
 

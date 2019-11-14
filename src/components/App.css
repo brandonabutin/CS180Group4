@@ -2,6 +2,12 @@
   text-align: center;
 }
 
+.app{
+  background-color: #007bff;
+  height: 100vh;
+
+}
+
 .App-logo {
   height: 40vmin;
 }
@@ -22,7 +28,8 @@
 }
 
 html, body {
-  height: 100%;
+height:100%;
+
 }
 
 .jumbotron
@@ -32,6 +39,13 @@ background-color: #007bff;
 }
 .dropdown:hover>.dropdown-menu {
   display: block;
+}
+
+.coinImage{
+  width: 160px!important;
+  height: 160px!important;
+  object-fit: cover;
+
 }
 
 .passwordCard
@@ -45,5 +59,18 @@ display:flex;
 align-items:center;
 }
 
-.card{
+.cryptoCard{
+
+  height: 90vh;
+  max-width: 80%;
+  max-height: 90%;
+  display:flex;
+  font-size: 20;
+
+
+}
+
+.cryptoStates{
+  font-size: 20;
+  font-weight: "bold";
 }
