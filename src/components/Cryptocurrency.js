@@ -27,6 +27,7 @@ class Cryptocurrency extends React.Component{
         });
     }
     render() {
+        console.log(this.state.raw_data)
         console.log("www.cryptocompare.com"+ this.state.imageurl)
         return(
          <div>
@@ -36,6 +37,7 @@ class Cryptocurrency extends React.Component{
             <h3><span>1hr change:  </span><span>{this.state.display_data['CHANGEHOUR']}</span></h3>
             <h3><span>Daily low: </span><span><span>{this.state.display_data['LOWDAY']}</span></span></h3>
             <h3><span>Daily High:</span><span>{this.state.display_data['HIGHDAY']}</span></h3>
+            <h3><span>Current Price:</span><span>${this.state.raw_data['PRICE']}</span></h3>
             <h3><span>24 Hour Percent change</span><span>{this.state.display_data['CHANGEPCT24HOUR']}</span></h3>
             <h3><span>1 hour Percent change:</span><span>{this.state.display_data['CHANGEPCTHOUR']}</span></h3>
             <h3><span>Symbol:</span><span>{this.state.display_data['FROMSYMBOL']}</span></h3>

@@ -55,8 +55,6 @@ class Displaylist extends Component{
   }
 
   renderCurrency(currency,index){
-    //console.log(currency.raw_data)
-    //console.log(currency.display_data)
     return(
     <tr key={index} >
      <td><Link to= {{pathname:"/cryptocurrency",
