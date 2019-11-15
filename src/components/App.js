@@ -12,13 +12,9 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 import LandingPage from './LandingPage';
 import CryptoCurrency from './Cryptocurrency'
-
-
-
+import ConversionCalculator from './ConversionCalculator'
 
 class App extends Component {
-
-
 
   render() {
     return (
@@ -32,6 +28,7 @@ class App extends Component {
           <Route path = "/changePassword" component = {ChangePassword}/>
           <Route path = "/signUp" component = {SignUp}/>
           <Route path = "/cryptocurrency" component = {CryptoCurrency}/>
+          <Route path = "/ConversionCalculator" component = {ConversionCalculator}/>
 
 
         </Switch>
