@@ -268,9 +268,28 @@ class Cryptocurrency extends React.Component {
             </Col>
           </div>
 
+          <div className="ml-auto ">
+
+            <Col>
+              <Card style={{
+                  width: '35rem'
+                }}>
+                <Card.Header>Convert</Card.Header>
+                <Card.Body>
+                  <Card.Title>{this.state.currencyname}</Card.Title>
+                  <Card.Text>BitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoin</Card.Text>
+
+                  <Card.Text>USagittis eu volutpat odio facilisis maurisSagittis eu volutpat odio facilisis maurisSagittis eu volutpat odio facilisis maurisSagittis eu volutpat odio facilisis maurisSagittis eu volutpat odio facilisis mauris</Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          </div>
+
         </Row>
-        <Col className="p-2">
-          <Card>
+
+        <div className="mx-auto pt-4">
+        <Col>
+        <Card>
             <Card.Header>News</Card.Header>
             <Card.Body>
               <Card.Title>Light Card Title</Card.Title>
@@ -282,7 +301,7 @@ class Cryptocurrency extends React.Component {
             </Card.Body>
           </Card>
         </Col>
-        <Row></Row>
+        </div>
 
       </Container>
 
