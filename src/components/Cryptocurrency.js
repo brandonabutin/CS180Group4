@@ -24,6 +24,7 @@ class Cryptocurrency extends React.Component {
     this.done = this.done.bind(this)
   }
   componentDidMount() {
+    window.scrollTo(0, 0)
     const currencynameparam = this.props.location.state.currencyname;
     const display_data = this.props.location.state.currecy_display_data;
     const raw_data = this.props.location.state.currency_raw_data;
@@ -74,7 +75,9 @@ class Cryptocurrency extends React.Component {
           <div className="cryptoCard pt-4">
             <Col className="ml-auto">
 
-              <Card className="mx-auto">
+              <Card className="mx-auto" style={{
+                  width: '22rem'
+                }}>
                 <Card.Img className="coinImage p-2" variant="top" src={"https://www.cryptocompare.com" + this.state.imageurl}/>
                 <Card.Title className="mr-auto pl-3">
                   <span style={{
