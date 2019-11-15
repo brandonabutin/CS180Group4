@@ -10,6 +10,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
+import ScrollLock from 'react-scrolllock';
+
 
 class SignIn extends Component {
 
@@ -24,6 +26,8 @@ class SignIn extends Component {
   }
   render() {
     return (<div>
+      <ScrollLock>
+
       <Navbar bg="primary" variant="dark" sticky="top">
         <Container>
           <Navbar.Brand onClick = {this.done}>180Crypto</Navbar.Brand>
@@ -82,7 +86,7 @@ class SignIn extends Component {
               </Col>
             </Row>
           </Container>
-
+          </ScrollLock>
         </div>);
   }
 }
