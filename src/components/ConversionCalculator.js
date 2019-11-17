@@ -30,19 +30,41 @@ class ConversionCalculator extends React.Component{
       })
   }
   render(){
-    for(let value in this.state.listings){
-       var cryptoObject= {};
-       cryptoObject['name'] = this.state.listings[value].CoinInfo.FullName;
-       cryptoObject['priceUSD'] = this.state.listings[value].RAW.USD.PRICE;
-       cryptocurrencyobjectlist.push(cryptoObject)
-    }
-     //console.log(this.state.listings[0]['CoinInfo']);
-    return(
+    createSelectItem() {
+      //let cryptocurrencyobjectlist = [];
+        for(let value in this.state.listings){
+           var cryptoObject= {};
+           cryptoObject['name'] = this.state.listings[value].CoinInfo.FullName;
+           cryptoObject['priceUSD'] = this.state.listings[value].RAW.USD.PRICE;
+           cryptocurrencyobjectlist.push(cryptoObject)
+         }
+         return cryptocurrencyobjectlist;
+       };
 
+       onDropdownSelected(e) {
+       console.log("THE VAL", e.target.value);
+       }
+       //console.log(this.state.listings[0]['CoinInfo']);
+
+
+    return(
       <div>
       <Container>
       <Row>
           <Dropdown>
+              /*createSelectItems() {
+               let items = [];
+               for (let i = 0; i <= this.props.maxValue; i++) {
+                    items.push(<option key={i} value={i}>{i}</option>);
+                    //here I will be creating my options dynamically based on
+                    //what props are currently passed to the parent component
+               }
+               return items;
+              }
+              onDropdownSelected(e) {
+              console.log("THE VAL", e.target.value);
+            }*/
+
               <Dropdown.Toggle variant="success" id="dropdown-basic">Currency</Dropdown.Toggle>
 
               <Dropdown.Menu>
@@ -50,17 +72,17 @@ class ConversionCalculator extends React.Component{
                 <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
               </Dropdown.Menu>
           </Dropdown>
-{" "}
+            {" "}
             <NumericInput min={0} max={10000} value={50}
             style={{
             input: {
               color: 'red'
             }}}
             />
-{" "}
+            {" "}
           <span> to </span>
 
-{" "}
+            {" "}
       <Dropdown>
   <Dropdown.Toggle variant="success" id="dropdown-basic">
     Currency
@@ -75,8 +97,8 @@ class ConversionCalculator extends React.Component{
   </Row>
   </Container>
   </div>
-    );
-  }
 
+  );//return
+  }
 }
 export default ConversionCalculator;
