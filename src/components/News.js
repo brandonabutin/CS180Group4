@@ -1,16 +1,11 @@
-import React, {Component} from 'react';
-import Button from 'react-bootstrap/Button';
+import React from 'react';
 import Card from 'react-bootstrap/Card';
-import CardGroup from 'react-bootstrap/CardGroup';
-import Table from 'react-bootstrap/Table'
-import { Link } from "react-router-dom";
 import axios from 'axios'
 
 var newsObjectList = [];
 
 class News extends React.Component {
   constructor(props) {
-    console.log(props);
     super(props);
     this.state = {
       newsData: [],
@@ -34,7 +29,7 @@ class News extends React.Component {
     axios.get("https://newsapi.org/v2/everything?q=" + this.props.name + "&sortBy=publishedAt&language=en&apiKey=2232a0eb76334bb884af70b23e2421d2")
       .then(res => {
         const newsArticles = res.data['articles']
-        console.log(newsArticles)
+
         this.setState({newsData: newsArticles})
       });
   }
@@ -51,8 +46,7 @@ class News extends React.Component {
       newsObject['publishedAt'] = this.state.newsData[index]["publishedAt"];
       newsObjectList.push(newsObject);
     }
-    console.log(newsObjectList);
-    console.log(this.props);
+
     return(
       <Card>
         <Card.Header>News</Card.Header>

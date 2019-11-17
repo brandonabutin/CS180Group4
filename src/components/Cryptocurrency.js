@@ -53,12 +53,11 @@ class Cryptocurrency extends React.Component {
     const raw_data = this.props.location.state.currency_raw_data;
     const imageurlparam = this.props.location.state.imageurl;
     const urlsymbol = this.props.location.state.urlsymbol;
-    console.log(urlsymbol)
     axios.get("https://min-api.cryptocompare.com/data/v2/histoday?fsym="+urlsymbol+"&tsym=USD&limit=10")
       .then(res => {
         var y_list = [];
         const response =res['data']['Data']['Data'];
-        console.log(response)
+        
         this.setState({graphdata: response});
 
         for(let value in this.state.graphdata){
@@ -91,17 +90,16 @@ class Cryptocurrency extends React.Component {
           ]
         };
         this.setState({data :fetch_data });
-        console.log(this.state.data)
     })
 
-    //console.log(raw_data)
+
     this.setState({currencyname: currencynameparam, display_data: display_data, raw_data: raw_data, imageurl: imageurlparam});
   }
   done() {
     this.props.history.push('/')
   }
   render() {
-    
+
     return (<div id="parent">
 
       <Navbar bg="primary" variant="dark" sticky="top">

@@ -73,8 +73,7 @@ class LandingPage extends Component {
     fetch('https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,JPY,EUR').then(response => {
       return response.json();
     }).then(result => {
-      console.log(JSON.stringify(result))
-      console.log(JSON.stringify(result.USD))
+      
       const USD2 = result.USD2
       this.setState({currency: result, USD: result.USD, USD2});
     });
@@ -82,12 +81,7 @@ class LandingPage extends Component {
 
   render() {
     const display = this.USD;
-    console.log(JSON.stringify(display));
-    console.log(JSON.stringify(this.currency));
-    console.log(JSON.stringify(this.props.USD));
-    console.log(this.props.USD);
-    console.log("test");
-    console.log(this.props.USD2);
+
     return (<div id="parent">
       <Navbar bg="primary" variant="dark" sticky="top">
         <Container>
@@ -133,7 +127,7 @@ class LandingPage extends Component {
 
       </Jumbotron>
 
-      
+
 
       <Container className="mx-auto">
         <h2 className="Table-header text-center">Coin Listings</h2>
