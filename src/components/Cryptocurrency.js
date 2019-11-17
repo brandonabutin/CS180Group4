@@ -12,6 +12,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import ListGroup from 'react-bootstrap/ListGroup';
 import {Line} from 'react-chartjs-2';
 import axios from 'axios'
+import FooterPage from './FooterPage'
 
 
 const options = {
@@ -382,6 +383,8 @@ class Cryptocurrency extends React.Component {
 
 
       </Container>
+
+      <FooterPage/>
 
     </div>);
   }

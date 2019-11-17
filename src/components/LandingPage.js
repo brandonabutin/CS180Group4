@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 
 import Navbar from 'react-bootstrap/Navbar';
+import NavbarBrand from 'react-bootstrap/NavbarBrand';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
@@ -14,6 +15,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import firebase, {auth, provider} from './firebase.js';
 import ListButton from './ListButton'
+import FooterPage from './FooterPage'
+
 
 function googleLogin() {
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -133,7 +136,7 @@ class LandingPage extends Component {
 
       </Jumbotron>
 
-      
+
 
       <Container className="mx-auto">
         <h2 className="Table-header text-center">Coin Listings</h2>
@@ -144,6 +147,8 @@ class LandingPage extends Component {
           </Col>
         </Row>
       </Container>
+      <FooterPage/>
+
 
     </div>);
   }
