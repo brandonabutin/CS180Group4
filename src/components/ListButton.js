@@ -64,6 +64,7 @@ class Displaylist extends Component{
         currency_raw_data: currency.raw_data,
         currecy_display_data: currency.display_data,
         imageurl:currency.imgurl,
+        urlsymbol:currency.raw_data.FROMSYMBOL,
      }}}>{currency.name}</Link></td>
       <td>${currency.priceUSD}</td>
     </tr>
