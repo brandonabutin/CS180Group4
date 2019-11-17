@@ -31,7 +31,7 @@ class News extends React.Component {
     )
   }
   getNews() {
-    axios.get("https://newsapi.org/v2/everything?q=" + this.props.name + "&sortBy=publishedAt&language=en&apiKey=d371789835b74790872200863148cf78")
+    axios.get("https://newsapi.org/v2/everything?q=" + this.props.name + "&sortBy=publishedAt&language=en&apiKey=2232a0eb76334bb884af70b23e2421d2")
       .then(res => {
         const newsArticles = res.data['articles']
         console.log(newsArticles)
