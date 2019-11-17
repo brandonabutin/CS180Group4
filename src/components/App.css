@@ -79,8 +79,8 @@ align-items:center;
 }
 
 .news{
-  height: 90%;
-  max-width: 80%;
+  height: 100%;
+  max-width: 100%;
   max-height: 100%;
   display:flex;
 
@@ -91,5 +91,15 @@ align-items:center;
   max-width: 100%;
   max-height: 100%;
   display:flex;
+
+}
+
+.newsImage{
+  width: 40px!important;
+  height: 40px!important;
+  object-fit: cover;
+  max-width: 20%;
+  max-height: 20%;
+
 
 }
