@@ -13,6 +13,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Badge from 'react-bootstrap/Badge';
 import {Line} from 'react-chartjs-2';
+import News from './News'
 import axios from 'axios'
 
 const options = {
@@ -347,17 +348,9 @@ class Cryptocurrency extends React.Component {
 
         </Row>
 
-        <div className="mx-auto pt-4">
-          <Col>
-            <Card>
-              <Card.Header>News</Card.Header>
-              <Card.Body>
-                <Card.Title>Light Card Title</Card.Title>
-                <Card.Text></Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-        </div>
+        <Col className="p-2">
+          <News name={this.state.currencyname}/>
+        </Col>
 
       </Container>
 
