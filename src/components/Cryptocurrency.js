@@ -8,7 +8,10 @@ import Container from 'react-bootstrap/Container';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
 import ListGroup from 'react-bootstrap/ListGroup';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Badge from 'react-bootstrap/Badge';
 import {Line} from 'react-chartjs-2';
 import News from './News'
 import axios from 'axios'
@@ -16,21 +19,24 @@ import axios from 'axios'
 const options = {
   maintainAspectRatio: true,
   scales: {
-    yAxes: [{
-      scaleLabel: {
-        display: true,
-        labelString: 'PriceUSD($)'
+    yAxes: [
+      {
+        scaleLabel: {
+          display: true,
+          labelString: 'PriceUSD($)'
+        }
       }
-    }],
-    xAxes: [{
-      scaleLabel: {
-        display: true,
-        labelString: 'Time(Days)'
+    ],
+    xAxes: [
+      {
+        scaleLabel: {
+          display: true,
+          labelString: 'Time(Days)'
+        }
       }
-    }],
+    ]
   }
 }
-
 
 class Cryptocurrency extends React.Component {
   constructor(props) {
@@ -40,11 +46,17 @@ class Cryptocurrency extends React.Component {
       display_data: {},
       raw_data: {},
       imageurl: '',
-      urlsymbol:'',
+      urlsymbol: '',
       graphdata: [],
       data: [],
+      numCoins: '',
+      output: '',
+      numMoney: '',
+      output2: ''
     }
     this.done = this.done.bind(this)
+    this.numCoins = React.createRef();
+    this.numMoney = React.createRef();
   }
   componentDidMount() {
     window.scrollTo(0, 0)
@@ -53,51 +65,75 @@ class Cryptocurrency extends React.Component {
     const raw_data = this.props.location.state.currency_raw_data;
     const imageurlparam = this.props.location.state.imageurl;
     const urlsymbol = this.props.location.state.urlsymbol;
-    axios.get("https://min-api.cryptocompare.com/data/v2/histoday?fsym="+urlsymbol+"&tsym=USD&limit=10")
-      .then(res => {
-        var y_list = [];
-        const response =res['data']['Data']['Data'];
-        
-        this.setState({graphdata: response});
 
-        for(let value in this.state.graphdata){
-          y_list.push(this.state.graphdata[value]['close'])
-        }
-         var fetch_data = {
-          labels: [0,1,2,3,4,5,6,7,8,9,10],
-          datasets: [
-            {
-              label: 'Price over last 10 days',
-              fill: false,
-              lineTension: 0.1,
-              backgroundColor: 'rgba(75,192,192,0.4)',
-              borderColor: 'rgba(75,192,192,1)',
-              borderCapStyle: 'butt',
-              borderDash: [],
-              borderDashOffset: 0.0,
-              borderJoinStyle: 'miter',
-              pointBorderColor: 'rgba(75,192,192,1)',
-              pointBackgroundColor: '#fff',
-              pointBorderWidth: 1,
-              pointHoverRadius: 5,
-              pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-              pointHoverBorderColor: 'rgba(220,220,220,1)',
-              pointHoverBorderWidth: 2,
-              pointRadius: 1,
-              pointHitRadius: 10,
-              data: y_list
-            }
-          ]
-        };
-        this.setState({data :fetch_data });
+    axios.get("https://min-api.cryptocompare.com/data/v2/histoday?fsym=" + urlsymbol + "&tsym=USD&limit=10").then(res => {
+      var y_list = [];
+      const response = res['data']['Data']['Data'];
+
+      this.setState({graphdata: response});
+
+      for (let value in this.state.graphdata) {
+        y_list.push(this.state.graphdata[value]['close'])
+      }
+      var fetch_data = {
+        labels: [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        datasets: [
+          {
+            label: 'Price over last 10 days',
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: 'rgba(75,192,192,0.4)',
+            borderColor: 'rgba(75,192,192,1)',
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: 'rgba(75,192,192,1)',
+            pointBackgroundColor: '#fff',
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+            pointHoverBorderColor: 'rgba(220,220,220,1)',
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: y_list
+          }
+        ]
+      };
+      this.setState({data: fetch_data});
     })
-
 
     this.setState({currencyname: currencynameparam, display_data: display_data, raw_data: raw_data, imageurl: imageurlparam});
   }
   done() {
     this.props.history.push('/')
   }
+  handleChange() {
+
+    this.setState({numCoins: this.numCoins.current.value})
+    const val = this.state.raw_data['PRICE'] * Number(this.numCoins.current.value)
+    this.setState({output: val})
+  }
+  handleChange2() {
+
+    this.setState({numMoney: this.numMoney.current.value})
+    const val = Number(this.numMoney.current.value) / this.state.raw_data['PRICE']
+    this.setState({output2: val})
+  }
+
   render() {
 
     return (<div id="parent">
@@ -258,23 +294,68 @@ class Cryptocurrency extends React.Component {
                 <Card.Header>Graph</Card.Header>
                 <Card.Body>
                   <Card.Title>Price Graph of {this.state.currencyname}</Card.Title>
-                  <Line data={this.state.data} options = {options} />
+                  <Line data={this.state.data} options={options}/>
+                </Card.Body>
+              </Card>
+            </Col>
+          </div>
+
+          <div className="ml-auto ">
+
+            <Col>
+              <Card style={{
+                  width: '35rem'
+                }}>
+                <Card.Header>Convert</Card.Header>
+                <Card.Body>
+                  <Card.Title>Convert {this.state.currencyname}
+                    {"\n"}
+                    & USD</Card.Title>
+                  <Form>
+                    <Form.Label>How many coins do you have?</Form.Label>
+                    <InputGroup >
+                      <InputGroup.Prepend>
+                        <InputGroup.Text id="basic-addon1">#</InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <Form.Control type="text" placeholder="coins" ref={this.numCoins} onChange={e => this.handleChange(e)}/>
+
+                    </InputGroup>
+                    <Button variant="light">
+                      $
+                      <Badge variant="light">{this.state.output}</Badge>
+                    </Button>
+                  </Form>
+                  <Form>
+
+                    <Form.Label>How much $ do you have?</Form.Label>
+                    <InputGroup >
+                      <InputGroup.Prepend>
+                        <InputGroup.Text id="basic-addon1">$</InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <Form.Control type="text" placeholder="USD" ref={this.numMoney} onChange={e => this.handleChange2(e)}/>
+                    </InputGroup>
+
+                    <Button variant="light">
+                      {this.state.display_data['FROMSYMBOL']}
+                      <Badge variant="light">{this.state.output2}</Badge>
+                    </Button>
+                  </Form>
+
                 </Card.Body>
               </Card>
             </Col>
           </div>
 
         </Row>
+
         <Col className="p-2">
           <News name={this.state.currencyname}/>
         </Col>
-        <Row></Row>
 
       </Container>
 
     </div>);
   }
 }
-
 
 export default Cryptocurrency;
