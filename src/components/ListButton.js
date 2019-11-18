@@ -72,7 +72,7 @@ class Displaylist extends Component{
   }
 
   componentDidMount() {
-    axios.get('https://min-api.cryptocompare.com/data/top/totalvolfull?limit=40&tsym=USD')
+    axios.get('https://min-api.cryptocompare.com/data/top/totalvolfull?limit=20&tsym=USD')
       .then(res => {
         const cryptos = res.data['Data'];
         this.setState({listings: cryptos});

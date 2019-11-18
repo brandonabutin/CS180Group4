@@ -8,28 +8,34 @@ import Container from 'react-bootstrap/Container';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
 import ListGroup from 'react-bootstrap/ListGroup';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Badge from 'react-bootstrap/Badge';
 import {Line} from 'react-chartjs-2';
 import axios from 'axios'
 
 const options = {
   maintainAspectRatio: true,
   scales: {
-    yAxes: [{
-      scaleLabel: {
-        display: true,
-        labelString: 'PriceUSD($)'
+    yAxes: [
+      {
+        scaleLabel: {
+          display: true,
+          labelString: 'PriceUSD($)'
+        }
       }
-    }],
-    xAxes: [{
-      scaleLabel: {
-        display: true,
-        labelString: 'Time(Days)'
+    ],
+    xAxes: [
+      {
+        scaleLabel: {
+          display: true,
+          labelString: 'Time(Days)'
+        }
       }
-    }],
+    ]
   }
 }
-
 
 class Cryptocurrency extends React.Component {
   constructor(props) {
@@ -39,11 +45,17 @@ class Cryptocurrency extends React.Component {
       display_data: {},
       raw_data: {},
       imageurl: '',
-      urlsymbol:'',
+      urlsymbol: '',
       graphdata: [],
       data: [],
+      numCoins: '',
+      output: '',
+      numMoney: '',
+      output2: ''
     }
     this.done = this.done.bind(this)
+    this.numCoins = React.createRef();
+    this.numMoney = React.createRef();
   }
   componentDidMount() {
     window.scrollTo(0, 0)
@@ -53,44 +65,55 @@ class Cryptocurrency extends React.Component {
     const imageurlparam = this.props.location.state.imageurl;
     const urlsymbol = this.props.location.state.urlsymbol;
     console.log(urlsymbol)
-    axios.get("https://min-api.cryptocompare.com/data/v2/histoday?fsym="+urlsymbol+"&tsym=USD&limit=10")
-      .then(res => {
-        var y_list = [];
-        const response =res['data']['Data']['Data'];
-        console.log(response)
-        this.setState({graphdata: response});
+    axios.get("https://min-api.cryptocompare.com/data/v2/histoday?fsym=" + urlsymbol + "&tsym=USD&limit=10").then(res => {
+      var y_list = [];
+      const response = res['data']['Data']['Data'];
+      console.log(response)
+      this.setState({graphdata: response});
 
-        for(let value in this.state.graphdata){
-          y_list.push(this.state.graphdata[value]['close'])
-        }
-         var fetch_data = {
-          labels: [0,1,2,3,4,5,6,7,8,9,10],
-          datasets: [
-            {
-              label: 'Price over last 10 days',
-              fill: false,
-              lineTension: 0.1,
-              backgroundColor: 'rgba(75,192,192,0.4)',
-              borderColor: 'rgba(75,192,192,1)',
-              borderCapStyle: 'butt',
-              borderDash: [],
-              borderDashOffset: 0.0,
-              borderJoinStyle: 'miter',
-              pointBorderColor: 'rgba(75,192,192,1)',
-              pointBackgroundColor: '#fff',
-              pointBorderWidth: 1,
-              pointHoverRadius: 5,
-              pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-              pointHoverBorderColor: 'rgba(220,220,220,1)',
-              pointHoverBorderWidth: 2,
-              pointRadius: 1,
-              pointHitRadius: 10,
-              data: y_list
-            }
-          ]
-        };
-        this.setState({data :fetch_data });
-        console.log(this.state.data)
+      for (let value in this.state.graphdata) {
+        y_list.push(this.state.graphdata[value]['close'])
+      }
+      var fetch_data = {
+        labels: [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        datasets: [
+          {
+            label: 'Price over last 10 days',
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: 'rgba(75,192,192,0.4)',
+            borderColor: 'rgba(75,192,192,1)',
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: 'rgba(75,192,192,1)',
+            pointBackgroundColor: '#fff',
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+            pointHoverBorderColor: 'rgba(220,220,220,1)',
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: y_list
+          }
+        ]
+      };
+      this.setState({data: fetch_data});
+      console.log(this.state.data)
     })
 
     //console.log(raw_data)
@@ -99,10 +122,28 @@ class Cryptocurrency extends React.Component {
   done() {
     this.props.history.push('/')
   }
+  handleChange() {
+    console.log(this.state.raw_data['PRICE'])
+
+    this.setState({numCoins: this.numCoins.current.value})
+    const val = this.state.raw_data['PRICE'] * Number(this.numCoins.current.value)
+    console.log(val)
+    this.setState({output: val})
+  }
+  handleChange2() {
+    console.log(this.state.raw_data['PRICE'])
+
+    this.setState({numMoney: this.numMoney.current.value})
+    const val = Number(this.numMoney.current.value) / this.state.raw_data['PRICE']
+    console.log(val)
+    this.setState({output2: val})
+  }
+
   render() {
     //console.log(this.state.graphdata)
     //console.log("www.cryptocompare.com" + this.state.imageurl)
-
+    console.log(this.state.output)
+    console.log(this.state.numCoins)
     console.log(this.state.data)
     return (<div id="parent">
 
@@ -262,7 +303,7 @@ class Cryptocurrency extends React.Component {
                 <Card.Header>Graph</Card.Header>
                 <Card.Body>
                   <Card.Title>Price Graph of {this.state.currencyname}</Card.Title>
-                  <Line data={this.state.data} options = {options} />
+                  <Line data={this.state.data} options={options}/>
                 </Card.Body>
               </Card>
             </Col>
@@ -276,10 +317,39 @@ class Cryptocurrency extends React.Component {
                 }}>
                 <Card.Header>Convert</Card.Header>
                 <Card.Body>
-                  <Card.Title>{this.state.currencyname}</Card.Title>
-                  <Card.Text>BitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoin</Card.Text>
+                  <Card.Title>Convert {this.state.currencyname}
+                  {"\n"}  & USD</Card.Title>
+                  <Form>
+                    <Form.Label>How many coins do you have?</Form.Label>
+                    <InputGroup >
+                        <InputGroup.Prepend>
+                          <InputGroup.Text id="basic-addon1">#</InputGroup.Text>
+                        </InputGroup.Prepend>
+                      <Form.Control type="text" placeholder="coins" ref={this.numCoins} onChange={e => this.handleChange(e)}/>
 
-                  <Card.Text>USagittis eu volutpat odio facilisis maurisSagittis eu volutpat odio facilisis maurisSagittis eu volutpat odio facilisis maurisSagittis eu volutpat odio facilisis maurisSagittis eu volutpat odio facilisis mauris</Card.Text>
+                    </InputGroup>
+                    <Button variant="light">
+                      $
+                      <Badge variant="light">{this.state.output}</Badge>
+                    </Button>
+                  </Form>
+                    <Form>
+
+
+                      <Form.Label>How much $ do you have?</Form.Label>
+                      <InputGroup >
+                        <InputGroup.Prepend>
+                          <InputGroup.Text id="basic-addon1">$</InputGroup.Text>
+                        </InputGroup.Prepend>
+                      <Form.Control type="text" placeholder="USD" ref={this.numMoney} onChange={e => this.handleChange2(e)}/>
+                    </InputGroup>
+
+                    <Button variant="light">
+                      {this.state.display_data['FROMSYMBOL']}
+                      <Badge variant="light">{this.state.output2}</Badge>
+                    </Button>
+                  </Form>
+
                 </Card.Body>
               </Card>
             </Col>
@@ -288,19 +358,19 @@ class Cryptocurrency extends React.Component {
         </Row>
 
         <div className="mx-auto pt-4">
-        <Col>
-        <Card>
-            <Card.Header>News</Card.Header>
-            <Card.Body>
-              <Card.Title>Light Card Title</Card.Title>
-              <Card.Text>
-                <p className="text-dark text-center p-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In tellus integer feugiat scelerisque varius morbi enim nunc. Venenatis cras sed felis eget velit aliquet sagittis id consectetur. Eu lobortis elementum nibh tellus molestie. Cursus in hac habitasse platea dictumst quisque sagittis. Sit amet mauris commodo quis imperdiet massa. Sit amet consectetur adipiscing elit ut aliquam. Nunc congue nisi vitae suscipit tellus. Sagittis eu volutpat odio facilisis mauris. Convallis a cras semper auctor neque vitae tempus. Netus et malesuada fames ac turpis egestas. Eget est lorem ipsum dolor sit amet consectetur. Aliquet nibh praesent tristique magna sit amet. Est ultricies integer quis auctor elit sed vulputate mi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Eget magna fermentum iaculis eu non. Diam phasellus vestibulum lorem sed risus ultricies. Mauris vitae ultricies leo integer malesuada nunc vel risus. Id faucibus nisl tincidunt eget nullam non nisi. Nulla malesuada pellentesque elit eget gravida cum. Donec ac odio tempor orci. Aliquam ultrices sagittis orci a scelerisque purus semper eget duis. Aliquam ultrices sagittis orci a scelerisque purus. Pretium aenean pharetra magna ac placerat vestibulum. Egestas erat imperdiet sed euismod nisi porta lorem mollis. Elit ut aliquam purus sit amet. orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In tellus integer feugiat scelerisque varius morbi enim nunc. Venenatis cras sed felis eget velit aliquet sagittis id consectetur. Eu lobortis elementum nibh tellus molestie. Cursus in hac habitasse platea dictumst quisque sagittis. Sit amet mauris commodo quis imperdiet massa. Sit amet consectetur adipiscing elit ut aliquam. Nunc congue nisi vitae suscipit tellus. Sagittis eu volutpat odio facilisis mauris. Convallis a cras semper auctor neque vitae tempus. Netus et malesuada fames ac turpis egestas. Eget est lorem ipsum dolor sit amet consectetur. Aliquet nibh praesent tristique magna sit amet. Est ultricies integer quis auctor elit sed vulputate mi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Eget magna fermentum iaculis eu non. Diam phasellus vestibulum lorem sed risus ultricies. Mauris vitae ultricies leo integer malesuada nunc vel risus. Id faucibus nisl tincidunt eget nullam non nisi. Nulla malesuada pellentesque elit eget gravida cum. Donec ac odio tempor orci. Aliquam ultrices sagittis orci a scelerisque purus semper eget duis. Aliquam ultrices sagittis orci a scelerisque purus. Pretium aenean pharetra magna ac placerat vestibulum. Egestas erat imperdiet sed euismod nisi porta lorem mollis. Elit ut aliquam purus sit amet. orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In tellus integer feugiat scelerisque varius morbi enim nunc. Venenatis cras sed felis eget velit aliquet sagittis id consectetur. Eu lobortis elementum nibh tellus molestie. Cursus in hac habitasse platea dictumst quisque sagittis. Sit amet mauris commodo quis imperdiet massa. Sit amet consectetur adipiscing elit ut aliquam. Nunc congue nisi vitae suscipit tellus. Sagittis eu volutpat odio facilisis mauris. Convallis a cras semper auctor neque vitae tempus. Netus et malesuada fames ac turpis egestas. Eget est lorem ipsum dolor sit amet consectetur. Aliquet nibh praesent tristique magna sit amet. Est ultricies integer quis auctor elit sed vulputate mi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Eget magna fermentum iaculis eu non. Diam phasellus vestibulum lorem sed risus ultricies. Mauris vitae ultricies leo integer malesuada nunc vel risus. Id faucibus nisl tincidunt eget nullam non nisi. Nulla malesuada pellentesque elit eget gravida cum. Donec ac odio tempor orci. Aliquam ultrices sagittis orci a scelerisque purus semper eget duis. Aliquam ultrices sagittis orci a scelerisque purus. Pretium aenean pharetra magna ac placerat vestibulum. Egestas erat imperdiet sed euismod nisi porta lorem mollis. Elit ut aliquam purus sit amet. orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In tellus integer feugiat scelerisque varius morbi enim nunc. Venenatis cras sed felis eget velit aliquet sagittis id consectetur. Eu lobortis elementum nibh tellus molestie. Cursus in hac habitasse platea dictumst quisque sagittis. Sit amet mauris commodo quis imperdiet massa. Sit amet consectetur adipiscing elit ut aliquam. Nunc congue nisi vitae suscipit tellus. Sagittis eu volutpat odio facilisis mauris. Convallis a cras semper auctor neque vitae tempus. Netus et malesuada fames ac turpis egestas. Eget est lorem ipsum dolor sit amet consectetur. Aliquet nibh praesent tristique magna sit amet. Est ultricies integer quis auctor elit sed vulputate mi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Eget magna fermentum iaculis eu non. Diam phasellus vestibulum lorem sed risus ultricies. Mauris vitae ultricies leo integer malesuada nunc vel risus. Id faucibus nisl tincidunt eget nullam non nisi. Nulla malesuada pellentesque elit eget gravida cum. Donec ac odio tempor orci. Aliquam ultrices sagittis orci a scelerisque purus semper eget duis. Aliquam ultrices sagittis orci a scelerisque purus. Pretium aenean pharetra magna ac placerat vestibulum. Egestas erat imperdiet sed euismod nisi porta lorem mollis. Elit ut aliquam purus sit amet.
+          <Col>
+            <Card>
+              <Card.Header>News</Card.Header>
+              <Card.Body>
+                <Card.Title>Light Card Title</Card.Title>
+                <Card.Text>
+                  <p className="text-dark text-center p-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In tellus integer feugiat scelerisque varius morbi enim nunc. Venenatis cras sed felis eget velit aliquet sagittis id consectetur. Eu lobortis elementum nibh tellus molestie. Cursus in hac habitasse platea dictumst quisque sagittis. Sit amet mauris commodo quis imperdiet massa. Sit amet consectetur adipiscing elit ut aliquam. Nunc congue nisi vitae suscipit tellus. Sagittis eu volutpat odio facilisis mauris. Convallis a cras semper auctor neque vitae tempus. Netus et malesuada fames ac turpis egestas. Eget est lorem ipsum dolor sit amet consectetur. Aliquet nibh praesent tristique magna sit amet. Est ultricies integer quis auctor elit sed vulputate mi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Eget magna fermentum iaculis eu non. Diam phasellus vestibulum lorem sed risus ultricies. Mauris vitae ultricies leo integer malesuada nunc vel risus. Id faucibus nisl tincidunt eget nullam non nisi. Nulla malesuada pellentesque elit eget gravida cum. Donec ac odio tempor orci. Aliquam ultrices sagittis orci a scelerisque purus semper eget duis. Aliquam ultrices sagittis orci a scelerisque purus. Pretium aenean pharetra magna ac placerat vestibulum. Egestas erat imperdiet sed euismod nisi porta lorem mollis. Elit ut aliquam purus sit amet. orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In tellus integer feugiat scelerisque varius morbi enim nunc. Venenatis cras sed felis eget velit aliquet sagittis id consectetur. Eu lobortis elementum nibh tellus molestie. Cursus in hac habitasse platea dictumst quisque sagittis. Sit amet mauris commodo quis imperdiet massa. Sit amet consectetur adipiscing elit ut aliquam. Nunc congue nisi vitae suscipit tellus. Sagittis eu volutpat odio facilisis mauris. Convallis a cras semper auctor neque vitae tempus. Netus et malesuada fames ac turpis egestas. Eget est lorem ipsum dolor sit amet consectetur. Aliquet nibh praesent tristique magna sit amet. Est ultricies integer quis auctor elit sed vulputate mi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Eget magna fermentum iaculis eu non. Diam phasellus vestibulum lorem sed risus ultricies. Mauris vitae ultricies leo integer malesuada nunc vel risus. Id faucibus nisl tincidunt eget nullam non nisi. Nulla malesuada pellentesque elit eget gravida cum. Donec ac odio tempor orci. Aliquam ultrices sagittis orci a scelerisque purus semper eget duis. Aliquam ultrices sagittis orci a scelerisque purus. Pretium aenean pharetra magna ac placerat vestibulum. Egestas erat imperdiet sed euismod nisi porta lorem mollis. Elit ut aliquam purus sit amet. orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In tellus integer feugiat scelerisque varius morbi enim nunc. Venenatis cras sed felis eget velit aliquet sagittis id consectetur. Eu lobortis elementum nibh tellus molestie. Cursus in hac habitasse platea dictumst quisque sagittis. Sit amet mauris commodo quis imperdiet massa. Sit amet consectetur adipiscing elit ut aliquam. Nunc congue nisi vitae suscipit tellus. Sagittis eu volutpat odio facilisis mauris. Convallis a cras semper auctor neque vitae tempus. Netus et malesuada fames ac turpis egestas. Eget est lorem ipsum dolor sit amet consectetur. Aliquet nibh praesent tristique magna sit amet. Est ultricies integer quis auctor elit sed vulputate mi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Eget magna fermentum iaculis eu non. Diam phasellus vestibulum lorem sed risus ultricies. Mauris vitae ultricies leo integer malesuada nunc vel risus. Id faucibus nisl tincidunt eget nullam non nisi. Nulla malesuada pellentesque elit eget gravida cum. Donec ac odio tempor orci. Aliquam ultrices sagittis orci a scelerisque purus semper eget duis. Aliquam ultrices sagittis orci a scelerisque purus. Pretium aenean pharetra magna ac placerat vestibulum. Egestas erat imperdiet sed euismod nisi porta lorem mollis. Elit ut aliquam purus sit amet. orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In tellus integer feugiat scelerisque varius morbi enim nunc. Venenatis cras sed felis eget velit aliquet sagittis id consectetur. Eu lobortis elementum nibh tellus molestie. Cursus in hac habitasse platea dictumst quisque sagittis. Sit amet mauris commodo quis imperdiet massa. Sit amet consectetur adipiscing elit ut aliquam. Nunc congue nisi vitae suscipit tellus. Sagittis eu volutpat odio facilisis mauris. Convallis a cras semper auctor neque vitae tempus. Netus et malesuada fames ac turpis egestas. Eget est lorem ipsum dolor sit amet consectetur. Aliquet nibh praesent tristique magna sit amet. Est ultricies integer quis auctor elit sed vulputate mi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Eget magna fermentum iaculis eu non. Diam phasellus vestibulum lorem sed risus ultricies. Mauris vitae ultricies leo integer malesuada nunc vel risus. Id faucibus nisl tincidunt eget nullam non nisi. Nulla malesuada pellentesque elit eget gravida cum. Donec ac odio tempor orci. Aliquam ultrices sagittis orci a scelerisque purus semper eget duis. Aliquam ultrices sagittis orci a scelerisque purus. Pretium aenean pharetra magna ac placerat vestibulum. Egestas erat imperdiet sed euismod nisi porta lorem mollis. Elit ut aliquam purus sit amet.
 
-                </p>
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </Col>
+                  </p>
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
         </div>
 
       </Container>
@@ -308,6 +378,5 @@ class Cryptocurrency extends React.Component {
     </div>);
   }
 }
-
 
 export default Cryptocurrency;
