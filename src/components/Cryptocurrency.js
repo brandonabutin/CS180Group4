@@ -308,13 +308,14 @@ class Cryptocurrency extends React.Component {
                 <Card.Header>Convert</Card.Header>
                 <Card.Body>
                   <Card.Title>Convert {this.state.currencyname}
-                  {"\n"}  & USD</Card.Title>
+                    {"\n"}
+                    & USD</Card.Title>
                   <Form>
                     <Form.Label>How many coins do you have?</Form.Label>
                     <InputGroup >
-                        <InputGroup.Prepend>
-                          <InputGroup.Text id="basic-addon1">#</InputGroup.Text>
-                        </InputGroup.Prepend>
+                      <InputGroup.Prepend>
+                        <InputGroup.Text id="basic-addon1">#</InputGroup.Text>
+                      </InputGroup.Prepend>
                       <Form.Control type="text" placeholder="coins" ref={this.numCoins} onChange={e => this.handleChange(e)}/>
 
                     </InputGroup>
@@ -323,14 +324,13 @@ class Cryptocurrency extends React.Component {
                       <Badge variant="light">{this.state.output}</Badge>
                     </Button>
                   </Form>
-                    <Form>
+                  <Form>
 
-
-                      <Form.Label>How much $ do you have?</Form.Label>
-                      <InputGroup >
-                        <InputGroup.Prepend>
-                          <InputGroup.Text id="basic-addon1">$</InputGroup.Text>
-                        </InputGroup.Prepend>
+                    <Form.Label>How much $ do you have?</Form.Label>
+                    <InputGroup >
+                      <InputGroup.Prepend>
+                        <InputGroup.Text id="basic-addon1">$</InputGroup.Text>
+                      </InputGroup.Prepend>
                       <Form.Control type="text" placeholder="USD" ref={this.numMoney} onChange={e => this.handleChange2(e)}/>
                     </InputGroup>
 
@@ -353,9 +353,7 @@ class Cryptocurrency extends React.Component {
               <Card.Header>News</Card.Header>
               <Card.Body>
                 <Card.Title>Light Card Title</Card.Title>
-                <Card.Text>
-                  
-                </Card.Text>
+                <Card.Text></Card.Text>
               </Card.Body>
             </Card>
           </Col>

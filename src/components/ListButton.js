@@ -55,8 +55,7 @@ class Displaylist extends Component{
   }
 
   renderCurrency(currency,index){
-    //console.log(currency.raw_data)
-    //console.log(currency.display_data)
+    
     return(
     <tr key={index} >
      <td><Link to= {{pathname:"/cryptocurrency",
@@ -89,13 +88,13 @@ class Displaylist extends Component{
        cryptoObject['imgurl'] = this.state.listings[value].DISPLAY.USD.IMAGEURL;
        cryptocurrencyobjectlist.push(cryptoObject)
     }
-    console.log(cryptocurrencyobjectlist)
     if(this.state.sorting === "ascending"){
       cryptocurrencyobjectlist.sort((a, b) => (a.priceUSD < b.priceUSD) ? -1 : 1)
       this.state.sorting = "descending"
     }else if(this.state.sorting === "descending"){
       cryptocurrencyobjectlist.sort((a, b) => (a.priceUSD < b.priceUSD) ? 1 : -1)
       this.state.sorting = "ascending"
+
     }
     //specify routes and links
     return(
