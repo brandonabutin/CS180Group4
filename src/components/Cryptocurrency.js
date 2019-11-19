@@ -55,8 +55,7 @@ class Cryptocurrency extends React.Component {
       output2: ''
     }
     this.done = this.done.bind(this)
-    this.numCoins = React.createRef();
-    this.numMoney = React.createRef();
+
   }
   componentDidMount() {
     window.scrollTo(0, 0)
@@ -121,16 +120,22 @@ class Cryptocurrency extends React.Component {
   done() {
     this.props.history.push('/')
   }
-  handleChange() {
+  handleChange(e) {
 
-    this.setState({numCoins: this.numCoins.current.value})
-    const val = this.state.raw_data['PRICE'] * Number(this.numCoins.current.value)
+
+
+    const numCoins = (e.target.validity.valid) ? e.target.value : this.state.numCoins;
+    this.setState({numCoins: numCoins})
+
+    const val = this.state.raw_data['PRICE'] * numCoins
     this.setState({output: val})
   }
-  handleChange2() {
+  handleChange2(e) {
 
-    this.setState({numMoney: this.numMoney.current.value})
-    const val = Number(this.numMoney.current.value) / this.state.raw_data['PRICE']
+    const numMoney = (e.target.validity.valid) ? e.target.value : this.state.numCoins;
+    this.setState({numMoney: numMoney})
+
+    const val = numMoney / this.state.raw_data['PRICE']
     this.setState({output2: val})
   }
 
@@ -317,7 +322,7 @@ class Cryptocurrency extends React.Component {
                       <InputGroup.Prepend>
                         <InputGroup.Text id="basic-addon1">#</InputGroup.Text>
                       </InputGroup.Prepend>
-                      <Form.Control type="text" placeholder="coins" ref={this.numCoins} onChange={e => this.handleChange(e)}/>
+                      <Form.Control type="text" pattern="[0-9]*" placeholder="coins" value={this.state.numCoins} onChange={e => this.handleChange(e)}/>
 
                     </InputGroup>
                     <Button variant="light">
@@ -332,7 +337,7 @@ class Cryptocurrency extends React.Component {
                       <InputGroup.Prepend>
                         <InputGroup.Text id="basic-addon1">$</InputGroup.Text>
                       </InputGroup.Prepend>
-                      <Form.Control type="text" placeholder="USD" ref={this.numMoney} onChange={e => this.handleChange2(e)}/>
+                      <Form.Control input type="tel" pattern="[0-9]*" placeholder="USD" value={this.state.numMoney} onChange={e => this.handleChange2(e)}/>
                     </InputGroup>
 
                     <Button variant="light">
