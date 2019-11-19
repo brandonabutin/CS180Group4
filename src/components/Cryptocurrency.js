@@ -370,15 +370,14 @@ class Cryptocurrency extends React.Component {
                 </Card.Body>
               </Card>
             </Col>
-          </div>
+            <div className = "pt-2">
 
-          <div className="mx-auto pt-2">
             <Col>
               {
                 this.state.about.map((info, i) => {
                   return (<Accordion>
                     <Card style={{
-                        width: '45rem'
+                        width: '22rem'
                       }}>
                       <Card.Header>
                         <Accordion.Toggle as={Button} variant="link" eventKey="0">
@@ -388,7 +387,7 @@ class Cryptocurrency extends React.Component {
                       <Accordion.Collapse eventKey="0">
 
                         <Card.Body>
-                            {info.description}
+                            {info.description != null && info.description}
                             <p>{"\n"}</p>
                             <Accordion.Toggle as={Button} variant="link" eventKey="0">
                               <i class="fas fa-chevron-up"></i>
@@ -405,12 +404,12 @@ class Cryptocurrency extends React.Component {
                       </Card.Header>
                       <Accordion.Collapse eventKey="1">
                         <Card.Body>
-                          <a href={info.website_url}>
+                          <a href={info.website_url != null && info.website_url}>
                             <i class="fas fa-globe"></i>
                             {"\n"}Website
                           </a>
                           <p>{"\n"}</p>
-                          <a href={info.whitepaper_url}>
+                          <a href={info.whitepaper_url != null && info.whitepaper_url}>
                             <i class="far fa-file-alt"></i>
                             {"\n"}Whitepaper
                           </a>
@@ -428,10 +427,13 @@ class Cryptocurrency extends React.Component {
                 })
               }
             </Col>
+            </div>
           </div>
 
 
-            <Col className="mx-auto p-2">
+
+
+            <Col className="ml-auto p-2">
               <News name={this.state.currencyname}/>
             </Col>
 
