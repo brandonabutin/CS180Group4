@@ -19,6 +19,19 @@ export class ModalContent_SignIn extends Component {
     firebase.auth().signInWithEmailAndPassword(this.state.user, this.state.pass).catch(function(error) {
     var errorCode = error.code;
     var errorMessage = error.message;
+    if (errorCode == 'auth/user-not-found') {
+    alert('Invalid User');
+    }
+    else if (errorCode == 'auth/invalid-email') {
+    alert('Invalid Email');
+    }
+    else if(errorCode == 'auth/wrong-password'){
+      alert('Invalid Password');
+    }
+    else{
+      alert('Account Created');
+      this.props.closeModal();
+    }
     });
    var user = firebase.auth().currentUser;
    if(user){

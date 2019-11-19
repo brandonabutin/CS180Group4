@@ -16,10 +16,15 @@ export class ModalContent_PassChange extends Component {
    } 
   handleSubmit = (event) =>{
     var user = firebase.auth().currentUser;
-    user.updatePassword(this.state.pass).catch(function(error) {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    });
+    user.updatePassword(this.state.pass).then(function() {
+  // Update successful
+    alert("Password Changed!")
+}).catch(function(error) {
+  // An error happened.
+    alert("New Password too Weak")
+});
+
+    
     console.log('password updated');
 
 }

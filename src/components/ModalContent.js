@@ -19,6 +19,20 @@ export class ModalContent extends Component {
     firebase.auth().createUserWithEmailAndPassword(this.state.user, this.state.pass).catch(function(error) {
     var errorCode = error.code;
     var errorMessage = error.message;
+    if (errorCode == 'auth/weak-password') {
+    alert('The password is too weak.');
+    }
+    else if (errorCode == 'auth/invalid-email') {
+    alert('Invalid Email');
+    }
+    else if(errorCode == 'auth/email-already-in-use'){
+      alert('Email Already in use');
+    }
+    else{
+      alert('Account Created');
+      this.props.closeModal();
+      console.log("else statemasdfas");
+    }
     });
 
    console.log(this.state.user);
