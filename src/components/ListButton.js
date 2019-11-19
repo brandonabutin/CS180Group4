@@ -28,7 +28,7 @@ class ListButton extends React.Component {
     if(this.state.sorting_ascending){
       return (
         <div>
-         <Button className = "mb-1" style={{float: 'right'}} onClick={this._onButtonClick}>Ascending</Button>
+         <Button className = "mb-1" style={{float: 'right'}} onClick={this._onButtonClick}>Market Cap: Ascending</Button>
          <Displaylist sortingprop="ascending" />
         </div>
       );
@@ -36,7 +36,7 @@ class ListButton extends React.Component {
     else{
       return (
         <div>
-          <Button className = "mb-1" style={{float: 'right'}} onClick={this._onButtonClick}>Descending</Button>
+          <Button className = "mb-1" style={{float: 'right'}} onClick={this._onButtonClick}>Market Cap: Descending</Button>
           <Displaylist sortingprop="descending" />
         </div>
       );
@@ -106,7 +106,7 @@ class Displaylist extends Component{
   <thead>
     <tr>
       <th>Name</th>
-      <th>PriceUSD</th>
+      <th>Price</th>
       <th>Market Cap</th>
     </tr>
     </thead>

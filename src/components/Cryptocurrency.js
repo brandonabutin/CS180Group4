@@ -10,9 +10,18 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Accordion from 'react-bootstrap/Accordion';
 import ListGroup from 'react-bootstrap/ListGroup';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Badge from 'react-bootstrap/Badge';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
+
 import {Line} from 'react-chartjs-2';
-import axios from 'axios'
-import FooterPage from './FooterPage'
+import axios from 'axios';
+import FooterPage from './FooterPage';
+import News from './News';
+
+
 
 
 const options = {
@@ -22,7 +31,7 @@ const options = {
       {
         scaleLabel: {
           display: true,
-          labelString: '$ USD'
+          labelString: 'Price ($)'
         }
       }
     ],
@@ -48,9 +57,15 @@ class Cryptocurrency extends React.Component {
       urlsymbol: '',
       graphdata: [],
       data: [],
-      about: []
+      about: [],
+      numCoins: '',
+      output: '',
+      numMoney: '',
+      output2: ''
     }
     this.done = this.done.bind(this)
+    this.numCoins = React.createRef();
+    this.numMoney = React.createRef();
 
   }
 
@@ -95,7 +110,7 @@ class Cryptocurrency extends React.Component {
             fill: false,
             lineTension: 0.1,
             backgroundColor: 'rgba(75,192,192,0.4)',
-            borderColor: 'rgba(75,192,192,1)',
+            borderColor: 'rgba(0,123,255,1)',
             borderCapStyle: 'butt',
             borderDash: [],
             borderDashOffset: 0.0,
@@ -129,16 +144,23 @@ class Cryptocurrency extends React.Component {
       const about = res['data'];
       console.log(about)
       this.setState({about: about});
-
-
     })
 
   }
+  handleChange() {
+
+    this.setState({numCoins: this.numCoins.current.value})
+    const val = this.state.raw_data['PRICE'] * Number(this.numCoins.current.value)
+    this.setState({output: val})
+  }
+  handleChange2() {
+
+    this.setState({numMoney: this.numMoney.current.value})
+    const val = Number(this.numMoney.current.value) / this.state.raw_data['PRICE']
+    this.setState({output2: val})
+  }
 
   render() {
-    //console.log(this.state.graphdata)
-    //console.log("www.cryptocompare.com" + this.state.imageurl)
-
 
     console.log(this.state.data)
     return (<div id="parent">
@@ -189,7 +211,7 @@ class Cryptocurrency extends React.Component {
                   </span>
                   <span style={{
                       color: 'gray',
-                      fontSize: 20
+                      fontSize: 18
                     }}>
                     {this.state.display_data['FROMSYMBOL']}</span>
                 </Card.Title>
@@ -199,85 +221,85 @@ class Cryptocurrency extends React.Component {
                     <ListGroup.Item>
                       <span style={{
                           color: 'gray',
-                          fontSize: 20
+                          fontSize: 18
                         }}>Current Price:{"\n"}
                       </span>
                       <span style={{
                           fontWeight: "bold",
-                          fontSize: 18
+                          fontSize: 16
                         }}>
                         {this.state.display_data['PRICE']}</span>
                     </ListGroup.Item>
                     <ListGroup.Item>
                       <span style={{
                           color: 'gray',
-                          fontSize: 20
+                          fontSize: 18
                         }}>Daily High:{"\n"}
                       </span>
                       <span style={{
                           fontWeight: "bold",
-                          fontSize: 18
+                          fontSize: 16
                         }}>
                         {this.state.display_data['HIGHDAY']}</span>
                     </ListGroup.Item>
                     <ListGroup.Item>
                       <span style={{
                           color: 'gray',
-                          fontSize: 20
+                          fontSize: 18
                         }}>Daily Low:{"\n"}
                       </span>
 
                       <span style={{
                           fontWeight: "bold",
-                          fontSize: 18
+                          fontSize: 16
                         }}>
                         {this.state.display_data['LOWDAY']}</span>
                     </ListGroup.Item>
                     <ListGroup.Item>
                       <span style={{
                           color: 'gray',
-                          fontSize: 20
+                          fontSize: 18
                         }}>24 Hour Change:{"\n"}
                       </span>
                       <span style={{
                           fontWeight: "bold",
-                          fontSize: 18
+                          fontSize: 16
                         }}>
                         {this.state.display_data['CHANGE24HOUR']}</span>
                     </ListGroup.Item>
                     <ListGroup.Item>
                       <span style={{
                           color: 'gray',
-                          fontSize: 20
+                          fontSize: 18
                         }}>1 Hour Change:{"\n"}
                       </span>
                       <span style={{
                           fontWeight: "bold",
-                          fontSize: 18
+                          fontSize: 16
                         }}>
                         {this.state.display_data['CHANGEHOUR']}</span>
                     </ListGroup.Item>
                     <ListGroup.Item>
                       <span style={{
                           color: 'gray',
-                          fontSize: 20
+                          fontSize: 18
                         }}>24 Hour Percent Change:{"\n"}
                       </span>
                       <span style={{
                           fontWeight: "bold",
-                          fontSize: 18
+                          fontSize: 16
                         }}>
                         {this.state.display_data['CHANGEPCT24HOUR']}</span>
                     </ListGroup.Item>
                     <ListGroup.Item>
                       <span style={{
                           color: 'gray',
-                          fontSize: 20
+                          fontSize: 18
                         }}>1 Hour Percent Change:{"\n"}
                       </span>
                       <span style={{
                           fontWeight: "bold",
-                          fontSize: 18
+                          fontSize: 16
                         }}>
                         {this.state.display_data['CHANGEPCTHOUR']}</span>
                     </ListGroup.Item>
@@ -297,25 +319,54 @@ class Cryptocurrency extends React.Component {
                   width: '45rem'
                 }}>
                 <Card.Body>
-                  <Card.Title>Price Graph of {this.state.currencyname}</Card.Title>
+                  <Card.Title>{this.state.currencyname} Chart</Card.Title>
                   <Line data={this.state.data} options={options}/>
                 </Card.Body>
               </Card>
             </Col>
           </div>
 
-          <div className="mr-auto pt-2">
+          <div className="mr-auto pt-2 ">
 
             <Col>
               <Card style={{
-                  width: '22rem'
+                  width: '22rem',
                 }}>
                 <Card.Header>Convert</Card.Header>
                 <Card.Body>
-                  <Card.Title>{this.state.currencyname}</Card.Title>
-                  <Card.Text>BitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoinBitcoin</Card.Text>
+                  <Card.Title>Convert {this.state.currencyname}
+                    {"\n"}
+                    & USD</Card.Title>
+                  <Form>
+                    <Form.Label>How many coins do you have?</Form.Label>
+                    <InputGroup >
+                      <InputGroup.Prepend>
+                        <InputGroup.Text id="basic-addon1">#</InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <Form.Control type="text" placeholder="coins" ref={this.numCoins} onChange={e => this.handleChange(e)}/>
 
-                  <Card.Text>USagittis eu volutpat odio facilisis maurisSagittis eu volutpat odio facilisis maurisSagittis eu volutpat odio facilisis maurisSagittis eu volutpat odio facilisis maurisSagittis eu volutpat odio facilisis mauris</Card.Text>
+                    </InputGroup>
+                    <Button variant="light">
+                      $
+                      <Badge variant="light">{this.state.output}</Badge>
+                    </Button>
+                  </Form>
+                  <Form>
+
+                    <Form.Label>How much $ do you have?</Form.Label>
+                    <InputGroup >
+                      <InputGroup.Prepend>
+                        <InputGroup.Text id="basic-addon1">$</InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <Form.Control type="text" placeholder="USD" ref={this.numMoney} onChange={e => this.handleChange2(e)}/>
+                    </InputGroup>
+
+                    <Button variant="light">
+                      {this.state.display_data['FROMSYMBOL']}
+                      <Badge variant="light">{this.state.output2}</Badge>
+                    </Button>
+                  </Form>
+
                 </Card.Body>
               </Card>
             </Col>
@@ -379,10 +430,19 @@ class Cryptocurrency extends React.Component {
             </Col>
           </div>
 
+
+            <Col className="mx-auto p-2">
+              <News name={this.state.currencyname}/>
+            </Col>
+
+
         </Row>
 
 
+
       </Container>
+
+
 
       <FooterPage/>
 
