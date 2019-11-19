@@ -14,6 +14,14 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import firebase, {auth, provider} from './firebase.js';
 import ListButton from './ListButton'
+import Modal from './Modal.js';
+import ModalTrigger from './ModalTrigger.js';
+import ModalContent from './ModalContent.js';
+import SignInTrigger from './SignInTrigger.js'
+import Modal_SignIn from './Modal_SignIn.js'
+import ModalContent_PassChange from './ModalContent_PassChange.js';
+import PassChangeTrigger from './PassChangeTrigger.js'
+import Modal_PassChange from './Modal_PassChange.js'
 
 function googleLogin() {
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -79,6 +87,20 @@ class LandingPage extends Component {
     });
   }
 
+  modalProps = {
+    triggerText: 'Sign Up',
+    signInText:'Sign In',
+    passChangeText:'Change Password'
+
+  };
+
+  loginSuccess = () =>{
+      this.setState({
+        user:true
+      });
+
+  }
+
   render() {
     const display = this.USD;
 
@@ -94,27 +116,36 @@ class LandingPage extends Component {
           <ButtonToolbar>
             {
               this.state.user
-                ? <Button variant="primary" className="" onClick={this.logout}>Sign Out</Button>
-                : <Button variant="primary" className="" onClick={this.signIn}>Sign In</Button>
-            }
-            {
-              this.state.user
                 ? <Dropdown className="mr-auto">
 
                     <Dropdown.Toggle>
                       <Button variant="primary">
-                        <img src={this.state.user.photoURL} height="32" width="32"/>
+                        <img src="https://duckduckgo.com/?q=default+profile+image+png&t=ffab&iar=images&iax=images&ia=images&iai=https%3A%2F%2Fcdn-images-1.medium.com%2Fmax%2F1200%2F1*MccriYX-ciBniUzRKAUsAw.png" height="32" width="32"/>
                       </Button>
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
                       <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
-                      <Dropdown.Item href="#/action-2" onClick={this.changePassword}>Change Password</Dropdown.Item>
+                      <Dropdown.Item href="#/action-2" ><Modal_PassChange modalProps={this.modalProps} /></Dropdown.Item>
                       <Dropdown.Item href="#/action-3" onClick={this.logout}>Sign Out</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
-                : <div></div>
+                : <Dropdown className="mr-auto">
+
+                    <Dropdown.Toggle>
+                      <Button variant="primary">
+                        
+                      </Button>
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      <Dropdown.Item href="#/action-2" ><Modal className testbool_fromparent = {this.state.testbool} modalProps={this.modalProps} callbackFromParent={this.myCallback} />  </Dropdown.Item>
+                      <Dropdown.Item href="#/action-3" ><Modal_SignIn modalProps={this.modalProps} loginSuccess = {this.loginSuccess}/> </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
             }
+
+
           </ButtonToolbar>
         </Container>
       </Navbar>
