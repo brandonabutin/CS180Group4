@@ -55,7 +55,11 @@ class News extends React.Component {
       newsObject['publishedAt'] = this.state.newsData[index]["publishedAt"];
       newsObjectList.push(newsObject);
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> master
     return(
       <Card>
         <Card.Header>News</Card.Header>

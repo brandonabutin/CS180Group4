@@ -8,6 +8,7 @@ import Container from 'react-bootstrap/Container';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+<<<<<<< HEAD
 import Accordion from 'react-bootstrap/Accordion';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Form from 'react-bootstrap/Form';
@@ -23,6 +24,15 @@ import News from './News';
 
 
 
+=======
+import Form from 'react-bootstrap/Form';
+import ListGroup from 'react-bootstrap/ListGroup';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Badge from 'react-bootstrap/Badge';
+import {Line} from 'react-chartjs-2';
+import News from './News'
+import axios from 'axios'
+>>>>>>> master
 
 const options = {
   maintainAspectRatio: true,
@@ -31,7 +41,11 @@ const options = {
       {
         scaleLabel: {
           display: true,
+<<<<<<< HEAD
           labelString: 'Price ($)'
+=======
+          labelString: 'PriceUSD($)'
+>>>>>>> master
         }
       }
     ],
@@ -39,7 +53,11 @@ const options = {
       {
         scaleLabel: {
           display: true,
+<<<<<<< HEAD
           labelString: 'Time (Days)'
+=======
+          labelString: 'Time(Days)'
+>>>>>>> master
         }
       }
     ]
@@ -57,15 +75,21 @@ class Cryptocurrency extends React.Component {
       urlsymbol: '',
       graphdata: [],
       data: [],
+<<<<<<< HEAD
       about: [],
+=======
+>>>>>>> master
       numCoins: '',
       output: '',
       numMoney: '',
       output2: ''
     }
     this.done = this.done.bind(this)
+<<<<<<< HEAD
     this.numCoins = React.createRef();
     this.numMoney = React.createRef();
+=======
+>>>>>>> master
 
   }
 
@@ -77,14 +101,21 @@ class Cryptocurrency extends React.Component {
     const raw_data = this.props.location.state.currency_raw_data;
     const imageurlparam = this.props.location.state.imageurl;
     const urlsymbol = this.props.location.state.urlsymbol;
+<<<<<<< HEAD
     console.log(urlsymbol)
 
     this.getMeta(urlsymbol);
+=======
+>>>>>>> master
 
     axios.get("https://min-api.cryptocompare.com/data/v2/histoday?fsym=" + urlsymbol + "&tsym=USD&limit=10").then(res => {
       var y_list = [];
       const response = res['data']['Data']['Data'];
+<<<<<<< HEAD
       console.log(response)
+=======
+
+>>>>>>> master
       this.setState({graphdata: response});
 
       for (let value in this.state.graphdata) {
@@ -110,7 +141,11 @@ class Cryptocurrency extends React.Component {
             fill: false,
             lineTension: 0.1,
             backgroundColor: 'rgba(75,192,192,0.4)',
+<<<<<<< HEAD
             borderColor: 'rgba(0,123,255,1)',
+=======
+            borderColor: 'rgba(75,192,192,1)',
+>>>>>>> master
             borderCapStyle: 'butt',
             borderDash: [],
             borderDashOffset: 0.0,
@@ -129,15 +164,18 @@ class Cryptocurrency extends React.Component {
         ]
       };
       this.setState({data: fetch_data});
+<<<<<<< HEAD
       console.log(this.state.data)
+=======
+>>>>>>> master
     })
 
-    //console.log(raw_data)
     this.setState({currencyname: currencynameparam, display_data: display_data, raw_data: raw_data, imageurl: imageurlparam});
   }
   done() {
     this.props.history.push('/')
   }
+<<<<<<< HEAD
 
   getMeta(coin) {
     axios.get("https://api.nomics.com/v1/currencies?key=026073210569d2c64ca3a1ccd5d87873&ids=" + coin + "&attributes=website_url,description,whitepaper_url").then(res => {
@@ -157,12 +195,29 @@ class Cryptocurrency extends React.Component {
 
     this.setState({numMoney: this.numMoney.current.value})
     const val = Number(this.numMoney.current.value) / this.state.raw_data['PRICE']
+=======
+  handleChange(e) {
+
+
+
+    const numCoins = (e.target.validity.valid) ? e.target.value : this.state.numCoins;
+    this.setState({numCoins: numCoins})
+
+    const val = this.state.raw_data['PRICE'] * numCoins
+    this.setState({output: val})
+  }
+  handleChange2(e) {
+
+    const numMoney = (e.target.validity.valid) ? e.target.value : this.state.numCoins;
+    this.setState({numMoney: numMoney})
+
+    const val = numMoney / this.state.raw_data['PRICE']
+>>>>>>> master
     this.setState({output2: val})
   }
 
   render() {
 
-    console.log(this.state.data)
     return (<div id="parent">
 
       <Navbar bg="primary" variant="dark" sticky="top">
@@ -319,7 +374,11 @@ class Cryptocurrency extends React.Component {
                   width: '45rem'
                 }}>
                 <Card.Body>
+<<<<<<< HEAD
                   <Card.Title>{this.state.currencyname} Chart</Card.Title>
+=======
+                  <Card.Title>Price Graph of {this.state.currencyname}</Card.Title>
+>>>>>>> master
                   <Line data={this.state.data} options={options}/>
                 </Card.Body>
               </Card>
@@ -343,7 +402,11 @@ class Cryptocurrency extends React.Component {
                       <InputGroup.Prepend>
                         <InputGroup.Text id="basic-addon1">#</InputGroup.Text>
                       </InputGroup.Prepend>
+<<<<<<< HEAD
                       <Form.Control type="text" placeholder="coins" ref={this.numCoins} onChange={e => this.handleChange(e)}/>
+=======
+                      <Form.Control type="text" pattern="[0-9]*" placeholder="coins" value={this.state.numCoins} onChange={e => this.handleChange(e)}/>
+>>>>>>> master
 
                     </InputGroup>
                     <Button variant="light">
@@ -358,7 +421,11 @@ class Cryptocurrency extends React.Component {
                       <InputGroup.Prepend>
                         <InputGroup.Text id="basic-addon1">$</InputGroup.Text>
                       </InputGroup.Prepend>
+<<<<<<< HEAD
                       <Form.Control type="text" placeholder="USD" ref={this.numMoney} onChange={e => this.handleChange2(e)}/>
+=======
+                      <Form.Control input type="tel" pattern="[0-9]*" placeholder="USD" value={this.state.numMoney} onChange={e => this.handleChange2(e)}/>
+>>>>>>> master
                     </InputGroup>
 
                     <Button variant="light">
@@ -440,7 +507,13 @@ class Cryptocurrency extends React.Component {
 
         </Row>
 
+<<<<<<< HEAD
 
+=======
+        <Col className="p-2">
+          <News name={this.state.currencyname}/>
+        </Col>
+>>>>>>> master
 
       </Container>
 
