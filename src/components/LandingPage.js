@@ -15,10 +15,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import firebase, {auth, provider} from './firebase.js';
 import ListButton from './ListButton'
-<<<<<<< HEAD
 import FooterPage from './FooterPage'
 
-=======
 import Modal from './Modal.js';
 import ModalTrigger from './ModalTrigger.js';
 import ModalContent from './ModalContent.js';
@@ -27,7 +25,6 @@ import Modal_SignIn from './Modal_SignIn.js'
 import ModalContent_PassChange from './ModalContent_PassChange.js';
 import PassChangeTrigger from './PassChangeTrigger.js'
 import Modal_PassChange from './Modal_PassChange.js'
->>>>>>> master
 
 function googleLogin() {
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -87,7 +84,7 @@ class LandingPage extends Component {
     fetch('https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,JPY,EUR').then(response => {
       return response.json();
     }).then(result => {
-      
+
       const USD2 = result.USD2
       this.setState({currency: result, USD: result.USD, USD2});
     });
@@ -140,7 +137,7 @@ class LandingPage extends Component {
 
                     <Dropdown.Toggle>
                       <Button variant="primary">
-                        
+
                       </Button>
                     </Dropdown.Toggle>
 
