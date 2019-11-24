@@ -94,7 +94,7 @@ class LandingPage extends Component {
     return (<div id="parent">
       <Navbar bg="primary" variant="dark" sticky="top">
         <Container>
-          <Navbar.Brand href="#home">180Crypto</Navbar.Brand>
+          <Navbar.Brand> <i class="fas fa-coins"></i>{' '}180Crypto</Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link href="#Prices">Prices</Nav.Link>
             <Nav.Link href="#Products">Products</Nav.Link>
@@ -129,17 +129,34 @@ class LandingPage extends Component {
       </Navbar>
 
       <Jumbotron >
-        <h1 className="text-light text-center" color="light">180Crypto</h1>
-        <h2 className="text-light text-center">Find your coin.
+        <h1 className="text-light text-center" color="light"><i class="fas fa-coins"></i>{' '}180Crypto</h1>
+        <h2 className="text-light text-center pb-3">Find your coin.
 
         </h2>
+        <Container className = "px-5">
+        <Row className = "px-5">
+          <Col className = "px-5">
+            <InputGroup className="px-5">
+              <FormControl
+                placeholder="Search for a cryptocurrency"
+                aria-label = "Search crypto"
+              />
+              <InputGroup.Append>
+                <Button variant="light">
+                  <i class="fas fa-search"></i>
+                </Button>
+              </InputGroup.Append>
+            </InputGroup>
+          </Col>
+        </Row>
+      </Container>
 
       </Jumbotron>
 
 
 
       <Container className="mx-auto">
-        <h2 className="Table-header text-center">Top 25 Coins</h2>
+        <h2 className="Table-header text-center">Top 25 Cryptocurrencies by Market Cap</h2>
         <Row>
           <Col>
 
