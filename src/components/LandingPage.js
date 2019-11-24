@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import './App.css';
 
 import Navbar from 'react-bootstrap/Navbar';
-import NavbarBrand from 'react-bootstrap/NavbarBrand';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
@@ -112,9 +111,8 @@ class LandingPage extends Component {
         <Container>
           <Navbar.Brand> <i class="fas fa-coins"></i>{' '}180Crypto</Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link href="#Prices">Prices</Nav.Link>
-            <Nav.Link href="#Products">Products</Nav.Link>
-            <Nav.Link href="#News">News</Nav.Link>
+            <Nav.Link>Prices</Nav.Link>
+            <Nav.Link>News</Nav.Link>
           </Nav>
           <ButtonToolbar>
             {
@@ -123,7 +121,7 @@ class LandingPage extends Component {
 
                     <Dropdown.Toggle>
                       <Button variant="primary">
-                        <img src="https://duckduckgo.com/?q=default+profile+image+png&t=ffab&iar=images&iax=images&ia=images&iai=https%3A%2F%2Fcdn-images-1.medium.com%2Fmax%2F1200%2F1*MccriYX-ciBniUzRKAUsAw.png" height="32" width="32"/>
+                        <i class="far fa-user-circle"></i>
                       </Button>
                     </Dropdown.Toggle>
 
@@ -137,7 +135,7 @@ class LandingPage extends Component {
 
                     <Dropdown.Toggle>
                       <Button variant="primary">
-
+                        <i class="far fa-user-circle"></i>
                       </Button>
                     </Dropdown.Toggle>
 

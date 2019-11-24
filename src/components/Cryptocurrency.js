@@ -79,6 +79,8 @@ class Cryptocurrency extends React.Component {
     const imageurlparam = this.props.location.state.imageurl;
     const urlsymbol = this.props.location.state.urlsymbol;
 
+    this.getMeta(urlsymbol);
+
     axios.get("https://min-api.cryptocompare.com/data/v2/histoday?fsym=" + urlsymbol + "&tsym=USD&limit=10").then(res => {
       var y_list = [];
       const response = res['data']['Data']['Data'];
@@ -134,6 +136,14 @@ class Cryptocurrency extends React.Component {
   done() {
     this.props.history.push('/')
   }
+  getMeta(coin) {
+    axios.get("https://api.nomics.com/v1/currencies?key=026073210569d2c64ca3a1ccd5d87873&ids=" + coin + "&attributes=website_url,description,whitepaper_url").then(res => {
+      const about = res['data'];
+      console.log(about)
+      this.setState({about: about});
+    })
+
+  }
   handleChange(e) {
 
 
@@ -161,9 +171,8 @@ class Cryptocurrency extends React.Component {
         <Container>
           <Navbar.Brand onClick={this.done}> <i class="fas fa-coins"></i>{' '}180Crypto</Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link href="#Prices">Prices</Nav.Link>
-            <Nav.Link href="#Products">Products</Nav.Link>
-            <Nav.Link href="#News">News</Nav.Link>
+            <Nav.Link>Prices</Nav.Link>
+            <Nav.Link>News</Nav.Link>
           </Nav>
           <ButtonToolbar>
 
@@ -335,7 +344,7 @@ class Cryptocurrency extends React.Component {
                       <InputGroup.Prepend>
                         <InputGroup.Text id="basic-addon1">#</InputGroup.Text>
                       </InputGroup.Prepend>
-                      <Form.Control type="text" pattern="[0-9]*" placeholder="coins" value={this.state.numCoins} onChange={e => this.handleChange(e)}/>
+                      <Form.Control type="text" pattern="[0-9]*[.]?[0-9]*" placeholder="coins" value={this.state.numCoins} onChange={e => this.handleChange(e)}/>
 
                     </InputGroup>
                     <Button variant="light">
@@ -350,7 +359,7 @@ class Cryptocurrency extends React.Component {
                       <InputGroup.Prepend>
                         <InputGroup.Text id="basic-addon1">$</InputGroup.Text>
                       </InputGroup.Prepend>
-                      <Form.Control input type="tel" pattern="[0-9]*" placeholder="USD" value={this.state.numMoney} onChange={e => this.handleChange2(e)}/>
+                      <Form.Control type="text" pattern="[0-9]*[.]?[0-9]*" placeholder="USD" value={this.state.numMoney} onChange={e => this.handleChange2(e)}/>
                     </InputGroup>
 
                     <Button variant="light">
