@@ -11,7 +11,7 @@ export class Modal extends Component {
     this.state = {
       isShown: false
     };
-  } 
+  }
 
 showModal = () => {
     this.setState({ isShown: true });

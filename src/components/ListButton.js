@@ -28,7 +28,7 @@ class ListButton extends React.Component {
     if(this.state.sorting_ascending){
       return (
         <div>
-         <Button className = "mb-1" style={{float: 'right'}} onClick={this._onButtonClick}>Ascending</Button>
+         <Button className = "mb-1" style={{float: 'right'}} onClick={this._onButtonClick}>Market Cap: Ascending</Button>
          <Displaylist sortingprop="ascending" />
         </div>
       );
@@ -36,7 +36,7 @@ class ListButton extends React.Component {
     else{
       return (
         <div>
-          <Button className = "mb-1" style={{float: 'right'}} onClick={this._onButtonClick}>Descending</Button>
+          <Button className = "mb-1" style={{float: 'right'}} onClick={this._onButtonClick}>Market Cap: Descending</Button>
           <Displaylist sortingprop="descending" />
         </div>
       );
@@ -65,13 +65,14 @@ class Displaylist extends Component{
         imageurl:currency.imgurl,
         urlsymbol:currency.raw_data.FROMSYMBOL,
      }}}>{currency.name}</Link></td>
-      <td>${currency.priceUSD}</td>
+      <td>{currency.priceUSD}</td>
+      <td>{currency.marketCap}</td>
     </tr>
       )
   }
 
   componentDidMount() {
-    axios.get('https://min-api.cryptocompare.com/data/top/totalvolfull?limit=40&tsym=USD')
+    axios.get('https://min-api.cryptocompare.com/data/top/mktcapfull?limit=25&tsym=USD')
       .then(res => {
         const cryptos = res.data['Data'];
         this.setState({listings: cryptos});
@@ -82,17 +83,19 @@ class Displaylist extends Component{
     for(let value in this.state.listings){
        var cryptoObject= {};
        cryptoObject['name'] = this.state.listings[value].CoinInfo.FullName;
-       cryptoObject['priceUSD'] = this.state.listings[value].RAW.USD.PRICE;
+       cryptoObject['priceUSD'] = this.state.listings[value].DISPLAY.USD.PRICE;
+       cryptoObject['marketCap'] = this.state.listings[value].DISPLAY.USD.MKTCAP;
+       cryptoObject['marketCapRaw'] = this.state.listings[value].RAW.USD.MKTCAP;
        cryptoObject['display_data'] = this.state.listings[value].DISPLAY.USD;
        cryptoObject['raw_data']= this.state.listings[value].RAW.USD;
        cryptoObject['imgurl'] = this.state.listings[value].DISPLAY.USD.IMAGEURL;
        cryptocurrencyobjectlist.push(cryptoObject)
     }
     if(this.state.sorting === "ascending"){
-      cryptocurrencyobjectlist.sort((a, b) => (a.priceUSD < b.priceUSD) ? -1 : 1)
+      cryptocurrencyobjectlist.sort((a, b) => (a.marketCapRaw < b.marketCapRaw) ? -1 : 1)
       this.state.sorting = "descending"
     }else if(this.state.sorting === "descending"){
-      cryptocurrencyobjectlist.sort((a, b) => (a.priceUSD < b.priceUSD) ? 1 : -1)
+      cryptocurrencyobjectlist.sort((a, b) => (a.marketCapRaw < b.marketCapRaw) ? 1 : -1)
       this.state.sorting = "ascending"
 
     }
@@ -102,7 +105,8 @@ class Displaylist extends Component{
   <thead>
     <tr>
       <th>Name</th>
-      <th>PriceUSD</th>
+      <th>Price</th>
+      <th>Market Cap</th>
     </tr>
     </thead>
     <tbody>
