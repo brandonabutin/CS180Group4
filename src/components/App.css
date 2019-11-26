@@ -1,0 +1,89 @@
+.App {
+  text-align: center;
+}
+
+.app{
+  background-color: #007bff;
+  height: 100vh;
+
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+html, body {
+height:100%;
+
+}
+
+.jumbotron
+{
+background-color: #007bff;
+
+}
+.dropdown:hover>.dropdown-menu {
+  display: block;
+}
+
+.coinImage{
+  width: 140px!important;
+  height: 140px!important;
+  object-fit: cover;
+
+}
+
+.passwordCard
+{
+
+background-color: #007bff;
+height: 100vh;
+max-width: 100%;
+max-height: 100%;
+display:flex;
+align-items:center;
+}
+
+.cryptoCard{
+
+
+  max-width: 100%;
+  max-height: 90%;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+
+
+}
+
+.cryptoStats{
+  font-size: 20;
+  font-weight: "bold";
+}
+
+
+
+.graph{
+
+  max-width: 100%;
+  max-height: 100%;
+  display:flex;
+
+}

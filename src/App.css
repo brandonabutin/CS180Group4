@@ -1,0 +1,47 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+.jumbotron
+{
+background-color: #007bff;
+
+}
+.dropdown:hover>.dropdown-menu {
+  display: block;
+}
+
+.jumbotron-div{
+      
+              background-color: white;
+              padding: 20px;
+              
+}
+
+.test-div {  background-color: lightgreen;
+              border-style: solid;
+              border-color: green; 
+              border-radius: 5px;
+              padding: 5px}
+.row-margin-10 { margin-top: 1.0em; }
+.row-margin-20 { margin-top: 2.0em; }
+.row-margin-30 { margin-top: 3.0em; }
