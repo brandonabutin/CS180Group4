@@ -13,9 +13,9 @@ export class ModalContent extends Component {
      };
      //this.handleChange = this.handleChange.bind(this);
      //this.handleSubmit = this.handleSubmit.bind(this);
-   } 
+   }
   handleSubmit = (event) =>{
-
+    var user, userID;
     firebase.auth().createUserWithEmailAndPassword(this.state.user, this.state.pass).catch(function(error) {
     var errorCode = error.code;
     var errorMessage = error.message;
@@ -30,10 +30,26 @@ export class ModalContent extends Component {
     }
     else{
       alert('Account Created');
+      user = firebase.auth().currentUser;
+
+
       this.props.closeModal();
       console.log("else statemasdfas");
+
     }
     });
+
+    firebase.database().ref('user/').push({
+      username: this.state.user,
+    }, function(error){
+      if(error){
+        console.log("error")
+      }
+      else{
+        console.log("success")
+
+      }
+    })
 
    console.log(this.state.user);
    console.log(this.state.string_test);
@@ -41,7 +57,7 @@ export class ModalContent extends Component {
    event.preventDefault();
 }
 print_test = (event) =>{
-  
+
   console.log(typeof(event.target.user));
   console.log("no definition");
   console.log(this.props.user);
@@ -52,13 +68,13 @@ print_test = (event) =>{
 }
 handleChangeUser  = (event) =>{
     this.setState({user: event.target.value});
-   
+
     console.log(this.state);
     //console.log(event.target.user);
 
   }
 handleChangePass  = (event) =>{
-    
+
     this.setState({pass: event.target.value});
     console.log(this.state);
     //console.log(event.target.user);
@@ -82,7 +98,7 @@ handleChangePass  = (event) =>{
           Password:
           <input type="text" value={this.state.pass}   onChange={this.handleChangePass}/><br/>
           <input type="submit" value="Submit" />
-          </form>    
+          </form>
         </div>
         </div>
       </aside>,
