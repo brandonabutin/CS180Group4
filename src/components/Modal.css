@@ -15,7 +15,6 @@
     left:600px;
     width:600px;
     height:450px;
-    background-color:white;
     opacity:1;
     z-index:1002;
     margin:auto;
@@ -25,8 +24,9 @@
   	padding-left: 80px;
 }
 
+
 .modal-area-secondary{
-  positoin:absolute;  
+  positoin:absolute;
   background-color:#ccddff;
   margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
   border: 1px solid #888;

@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './Modal.css';
-import firebase, { auth, provider } from './firebase.js';
+import firebase, { auth, provider } from './firebase.js'
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Card from 'react-bootstrap/Card';
+
+
+
 
 export class ModalContent extends Component {
   constructor(props) {
@@ -87,19 +93,31 @@ handleChangePass  = (event) =>{
       <div className = "backdrop">
       </div>
         <div className="modal-area" >
-        <div className="modal-area-secondary">
-          <button className="_modal-close" onClick={this.props.closeModal}>
-            close
-          </button>
-          <div className="modal-body">Sign Up</div>
-          <form onSubmit={this.handleSubmit}>
-          User:
-          <input type="text" value={this.state.user}   onChange={this.handleChangeUser} /><br/>
-          Password:
-          <input type="text" value={this.state.pass}   onChange={this.handleChangePass}/><br/>
-          <input type="submit" value="Submit" />
-          </form>
-        </div>
+          <Card className="mx-auto" border="primary">
+            <Card.Header>Sign Up</Card.Header>
+            <Card.Body>
+              <Form onSubmit={this.handleSubmit}>
+                <Form.Group controlId="formBasicEmail">
+                  <Form.Label>Email </Form.Label>
+                  <Form.Control type="email" value={this.state.user} onChange={this.handleChangeUser} placeholder="Email"/>
+
+                </Form.Group>
+
+                <Form.Group controlId="formBasicPassword">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control type="password" value={this.state.pass} onChange={this.handleChangePass} placeholder="Password"/>
+                  <Form.Text className="text-muted">Please enter a secure password.</Form.Text>
+                </Form.Group>
+
+                <Button className = ""variant="primary" type="submit" onSubmit={this.handleSubmit}>
+                  Sign Up
+                </Button>
+                <Button style={{float: 'right'}} className="_modal-close mr-auto" onClick={this.props.closeModal}>
+                  Close
+                </Button>
+                </Form>
+              </Card.Body>
+            </Card>
         </div>
       </aside>,
       document.body
