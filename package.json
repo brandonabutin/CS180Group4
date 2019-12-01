@@ -9,6 +9,7 @@
     "coinmarketcap-api": "^3.0.1",
     "crypto": "^1.0.1",
     "crypto-news-api": "^2.2.2",
+    "cryptocurrencies": "^7.0.0",
     "firebase": "^7.2.3",
     "mdbreact": "^4.22.1",
     "newsapi": "^2.4.0",
@@ -24,7 +25,8 @@
     "react-scrolllock": "^4.0.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.5",
-    "request-promise-native": "^1.0.8"
+    "request-promise-native": "^1.0.8",
+    "stock-symbol-lookup": "^0.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
