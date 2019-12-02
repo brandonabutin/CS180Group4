@@ -74,7 +74,7 @@ class Cryptocurrency extends React.Component {
     window.scrollTo(0, 0)
 
     const currencynameparam = this.props.location.state.currencyname;
-    const display_data = this.props.location.state.currecy_display_data;
+    const display_data = this.props.location.state.currency_display_data;
     const raw_data = this.props.location.state.currency_raw_data;
     const imageurlparam = this.props.location.state.imageurl;
     const urlsymbol = this.props.location.state.urlsymbol;

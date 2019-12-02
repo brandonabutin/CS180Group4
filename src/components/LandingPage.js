@@ -24,6 +24,9 @@ import Modal_SignIn from './Modal_SignIn.js'
 import ModalContent_PassChange from './ModalContent_PassChange.js';
 import PassChangeTrigger from './PassChangeTrigger.js'
 import Modal_PassChange from './Modal_PassChange.js'
+import axios from 'axios';
+
+const cryptocurrencies = require('cryptocurrencies');
 
 function googleLogin() {
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -45,13 +48,15 @@ class LandingPage extends Component {
       items: [],
       user: null,
       USD: "todo ",
-      USD2: ''
+      USD2: '',
+      transferState: null,
     }
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.changePassword = this.changePassword.bind(this)
     this.signIn = this.signIn.bind(this)
     this.signUp = this.signUp.bind(this)
+    this.makeSearch = this.makeSearch.bind(this);
   }
 
   changePassword() {
@@ -79,6 +84,40 @@ class LandingPage extends Component {
     });
   }
 
+  makeSearch() {
+      const search = document.getElementById("searchInput").value.toLowerCase();
+      var symbol;
+      symbol = Object.keys(cryptocurrencies).find(key => cryptocurrencies[key].toString().toLowerCase() == search)
+      console.log(symbol);
+      var apiResponse;
+      if(symbol) {
+        axios.get("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=" + symbol + "&tsyms=USD")
+          .then(res => {
+            console.log(res);
+            if (res.request.readyState == 4 && res.request.status == 200) {
+              try {
+                var currencyNameTemp = search;
+                var currencyRawDataTemp = res.data.RAW[symbol].USD;
+                var currencyDisplayDataTemp = res.data.DISPLAY[symbol].USD;
+                var imageUrlTemp = res.data.DISPLAY[symbol].USD.IMAGEURL;
+                var urlSymbolTemp = res.data.DISPLAY[symbol].USD.FROMSYMBOL;
+                this.setState({transferState: {
+                  currencyname: currencyNameTemp,
+                  currency_raw_data: currencyRawDataTemp,
+                  currency_display_data: currencyDisplayDataTemp,
+                  imageurl: imageUrlTemp,
+                  urlsymbol: symbol,
+                }})
+              } catch(e) {
+                console.log("failed history push");
+                console.log(e);
+              }
+            }
+          })
+        }
+    }
+
+
   componentDidMount() {
     fetch('https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,JPY,EUR').then(response => {
       return response.json();
@@ -105,6 +144,13 @@ class LandingPage extends Component {
 
   render() {
     const display = this.USD;
+
+    if(this.state.transferState) {
+      this.props.history.push({
+        pathname:"/cryptocurrency",
+        state: this.state.transferState,
+      })
+    }
 
     return (<div id="parent">
       <Navbar bg="primary" variant="dark" sticky="top">
@@ -160,14 +206,15 @@ class LandingPage extends Component {
         <Row className = "px-5">
           <Col className = "px-5">
             <InputGroup className="px-5">
-              <FormControl
-                placeholder="Search for a cryptocurrency"
-                aria-label = "Search crypto"
-              />
+            <FormControl
+              placeholder="Search for a cryptocurrency"
+              aria-label = "Search crypto"
+              id="searchInput"
+            />
               <InputGroup.Append>
-                <Button variant="light">
-                  <i class="fas fa-search"></i>
-                </Button>
+              <Button variant="light" onClick={() => this.makeSearch()}>
+                <i class="fas fa-search"></i>
+              </Button>
               </InputGroup.Append>
             </InputGroup>
           </Col>
