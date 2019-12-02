@@ -146,7 +146,7 @@ class LandingPage extends Component {
                 currency_raw_data: currencyRawDataTemp,
                 currency_display_data: currencyDisplayDataTemp,
                 imageurl: imageUrlTemp,
-                urlsymbol: urlSymbolTemp,
+                urlsymbol: symbol,
               }})
             } catch(e) {
               console.log("failed history push");
