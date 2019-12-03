@@ -64,7 +64,7 @@ class SignIn extends Component {
               }}>
               <Card.Header>Sign In</Card.Header>
               <Card.Body>
-                < Form >
+                <Form>
                   <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email </Form.Label>
                     <Form.Control type="email" placeholder="Email"/>
