@@ -16,14 +16,17 @@ import firebase, {auth, provider} from './firebase.js';
 import ListButton from './ListButton'
 import FooterPage from './FooterPage'
 
-import Modal from './Modal.js';
-import ModalTrigger from './ModalTrigger.js';
-import ModalContent from './ModalContent.js';
-import SignInTrigger from './SignInTrigger.js'
-import Modal_SignIn from './Modal_SignIn.js'
+import Modal_SignUp from './Modal_SignUp.js';
+import ModalContent_SignUp from './ModalContent_SignUp.js';
+
+import Modal_SignIn from './Modal_SignIn.js';
+
 import ModalContent_PassChange from './ModalContent_PassChange.js';
-import PassChangeTrigger from './PassChangeTrigger.js'
-import Modal_PassChange from './Modal_PassChange.js'
+import Modal_PassChange from './Modal_PassChange.js';
+
+import Modal_Favorites from './Modal_Favorites.js';
+//import ModalContent_Favorites from '/ModalContent_Favorites.js';
+import Modal_Alerts from './Modal_Alerts.js';
 import axios from 'axios';
 
 const cryptocurrencies = require('cryptocurrencies');
@@ -173,7 +176,9 @@ class LandingPage extends Component {
 
                     <Dropdown.Menu>
                       <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
-                      <Dropdown.Item href="#/action-2" ><Modal_PassChange modalProps={this.modalProps} /></Dropdown.Item>
+                       <Dropdown.Item><Modal_Favorites /></Dropdown.Item>
+                      <Dropdown.Item href="#/action-2" ><Modal_PassChange /></Dropdown.Item>
+                      <Dropdown.Item href="#/action-2" ><Modal_Alerts /></Dropdown.Item>
                       <Dropdown.Item href="#/action-3" onClick={this.logout}>Sign Out</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
@@ -186,8 +191,8 @@ class LandingPage extends Component {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                      <Dropdown.Item href="#/action-2" ><Modal className testbool_fromparent = {this.state.testbool} modalProps={this.modalProps} callbackFromParent={this.myCallback} />  </Dropdown.Item>
-                      <Dropdown.Item href="#/action-3" ><Modal_SignIn modalProps={this.modalProps} loginSuccess = {this.loginSuccess}/> </Dropdown.Item>
+                      <Dropdown.Item href="#/action-2" ><Modal_SignUp testbool_fromparent = {this.state.testbool} callbackFromParent={this.myCallback} />  </Dropdown.Item>
+                      <Dropdown.Item href="#/action-3" ><Modal_SignIn loginSuccess = {this.loginSuccess}/> </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
             }

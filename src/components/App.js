@@ -7,9 +7,7 @@ import {
 } from "react-router-dom";
 
 
-import ChangePassword from './ChangePassword';
-import SignIn from './SignIn';
-import SignUp from './SignUp';
+
 import LandingPage from './LandingPage';
 import CryptoCurrency from './Cryptocurrency'
 
@@ -28,9 +26,7 @@ class App extends Component {
         <Switch>
 
           <Route exact path = "/" component = {LandingPage}/>
-          <Route path = "/signIn" component = {SignIn}/>
-          <Route path = "/changePassword" component = {ChangePassword}/>
-          <Route path = "/signUp" component = {SignUp}/>
+
           <Route path = "/cryptocurrency" component = {CryptoCurrency}/>
 
 

@@ -4,6 +4,8 @@ import Button from 'react-bootstrap/Button';
 import axios from 'axios'
 import Table from 'react-bootstrap/Table'
 import { Link } from "react-router-dom";
+import NotificationButton from './NotificationButton'
+//import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 var cryptocurrencyobjectlist = [] ;
 
@@ -55,18 +57,19 @@ class Displaylist extends Component{
   }
 
   renderCurrency(currency,index){
-
+    
     return(
     <tr key={index} >
      <td><Link to= {{pathname:"/cryptocurrency",
         state:{currencyname:currency.name,
         currency_raw_data: currency.raw_data,
-        currency_display_data: currency.display_data,
+        currecy_display_data: currency.display_data,
         imageurl:currency.imgurl,
         urlsymbol:currency.raw_data.FROMSYMBOL,
      }}}>{currency.name}</Link></td>
       <td>{currency.priceUSD}</td>
       <td>{currency.marketCap}</td>
+      <td><NotificationButton Name={currency.name} urlsymbol={currency.raw_data.FROMSYMBOL}/></td>
     </tr>
       )
   }
@@ -97,7 +100,6 @@ class Displaylist extends Component{
     }else if(this.state.sorting === "descending"){
       cryptocurrencyobjectlist.sort((a, b) => (a.marketCapRaw < b.marketCapRaw) ? 1 : -1)
       this.state.sorting = "ascending"
-
     }
     //specify routes and links
     return(
@@ -107,6 +109,7 @@ class Displaylist extends Component{
       <th>Name</th>
       <th>Price</th>
       <th>Market Cap</th>
+      <th>Notifications</th>
     </tr>
     </thead>
     <tbody>

@@ -1,0 +1,91 @@
+.backdrop {
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    background-color:black;
+    opacity:0.8;
+    z-index:1001;
+}
+
+.primary{
+    position: fixed;
+    top:20%;
+    left:500px;
+    width:700px;
+    height:500px;
+    background-color:white;
+    opacity:1;
+    z-index:1002;
+    margin:auto;
+    padding-top: 50px;
+  	padding-right: 20px;
+  	padding-bottom: 100px;
+  	padding-left: 80px;
+   border-radius: 8px;
+   display: inline-block;
+}
+
+.secondary{
+  
+  background-color:#ccddff;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 90%; /* Could be more or less, depending on screen size */
+  height:90%;
+  padding-top: 50px;
+  padding-right: 10px;
+  padding-bottom: 50px;
+  padding-left: 10px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.close-button{
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #e7e7e7; 
+  color: black;
+  position:absolute;
+  top:5%;
+  left:80%;
+  border: 2px solid #555555;
+  display: inline-block;
+
+}
+
+.div-title{
+  text-align:center;
+  left:40%;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+  font-size: x-large;
+  display: inline-block;
+}
+
+.generic-button{
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #e7e7e7; 
+  color: black;
+
+}
+
+input[type=text]{
+  border: 1px solid #555;
+}
+
+input {
+  width: 100%;
+}
+
+input[type=submit]{
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #e7e7e7; 
+  color: black;
+  width:20%
+
+}
