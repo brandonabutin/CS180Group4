@@ -64,7 +64,7 @@ handleChangePass  = (event) =>{
               <Form.Group controlId="formBasicPassword">
                 <Form.Label>New Password</Form.Label>
                 <Form.Control type="password" value={this.state.pass} onChange={this.handleChangePass} placeholder="Password"/>
-                <Form.Text className="Please enter a secure password."></Form.Text>
+                  <Form.Text className="text-muted">Please enter a secure password.</Form.Text>
               </Form.Group>
 
               <Button className = ""variant="primary" type="submit" onSubmit={this.handleSubmit}>
