@@ -21,7 +21,6 @@ export class ModalContent extends Component {
      //this.handleSubmit = this.handleSubmit.bind(this);
    }
   handleSubmit = (event) =>{
-    var user, userID;
     firebase.auth().createUserWithEmailAndPassword(this.state.user, this.state.pass).catch(function(error) {
     var errorCode = error.code;
     var errorMessage = error.message;
@@ -36,7 +35,6 @@ export class ModalContent extends Component {
     }
     else{
       alert('Account Created');
-      user = firebase.auth().currentUser;
 
 
       this.props.closeModal();
@@ -44,18 +42,6 @@ export class ModalContent extends Component {
 
     }
     });
-
-    firebase.database().ref('user/').push({
-      username: this.state.user,
-    }, function(error){
-      if(error){
-        console.log("error")
-      }
-      else{
-        console.log("success")
-
-      }
-    })
 
    console.log(this.state.user);
    console.log(this.state.string_test);
