@@ -63,7 +63,7 @@ class Displaylist extends Component{
      <td><Link to= {{pathname:"/cryptocurrency",
         state:{currencyname:currency.name,
         currency_raw_data: currency.raw_data,
-        currecy_display_data: currency.display_data,
+        currency_display_data: currency.display_data,
         imageurl:currency.imgurl,
         urlsymbol:currency.raw_data.FROMSYMBOL,
      }}}>{currency.name}</Link></td>
