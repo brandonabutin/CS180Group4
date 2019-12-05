@@ -47,6 +47,12 @@ background-color: #007bff;
   object-fit: cover;
 
 }
+.coinImageTable{
+  width: 20px!important;
+  height: 20px!important;
+  object-fit: cover;
+
+}
 
 .passwordCard
 {

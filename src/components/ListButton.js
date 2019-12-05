@@ -3,6 +3,7 @@ import './App.css';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios'
 import Table from 'react-bootstrap/Table'
+import Image from 'react-bootstrap/Image'
 import { Link } from "react-router-dom";
 import NotificationButton from './NotificationButton'
 //import {NotificationContainer, NotificationManager} from 'react-notifications';
@@ -66,7 +67,7 @@ class Displaylist extends Component{
         currency_display_data: currency.display_data,
         imageurl:currency.imgurl,
         urlsymbol:currency.raw_data.FROMSYMBOL,
-     }}}>{currency.name}</Link></td>
+     }}}><Image className = "coinImageTable mx-2" src={"https://www.cryptocompare.com" + currency.imgurl} roundedCircle />{currency.name}</Link></td>
       <td>{currency.priceUSD}</td>
       <td>{currency.marketCap}</td>
       <td><NotificationButton Name={currency.name} urlsymbol={currency.raw_data.FROMSYMBOL}/></td>
