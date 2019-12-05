@@ -20,6 +20,26 @@ import {Line} from 'react-chartjs-2';
 import axios from 'axios';
 import FooterPage from './FooterPage';
 import News from './News';
+import firebase, {auth, provider} from './firebase.js';
+
+
+
+import Modal_SignUp from './Modal_SignUp.js';
+import Modal_SignIn from './Modal_SignIn.js';
+import Modal_PassChange from './Modal_PassChange.js';
+import Modal_Favorites from './Modal_Favorites.js';
+import Modal_Alerts from './Modal_Alerts.js';
+
+function googleLogin() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+
+  firebase.auth().signInWithPopup(provider).then(result => {
+    const user = result.user;
+    document.write('Hello ${data.displayName}');
+  }).catch(console.log)
+}
+
+
 
 
 
@@ -162,37 +182,78 @@ class Cryptocurrency extends React.Component {
     const val = numMoney / this.state.raw_data['PRICE']
     this.setState({output2: val})
   }
+  modalProps = {
+    triggerText: 'Sign Up',
+    signInText:'Sign In',
+    passChangeText:'Change Password'
+
+  };
+  logout() {
+    auth.signOut().then(() => {
+      this.setState({user: null});
+    });
+  }
+  login() {
+    auth.signInWithPopup(provider).then((result) => {
+      const user = result.user;
+      this.setState({user});
+    });
+  }
+  loginSuccess = () =>{
+      this.setState({
+        user:true
+      });
+
+  }
 
   render() {
 
     return (<div id="parent">
 
-      <Navbar bg="primary" variant="dark" sticky="top">
-        <Container>
-          <Navbar.Brand onClick={this.done}> <i class="fas fa-coins"></i>{' '}180Crypto</Navbar.Brand>
-          <Nav className="mr-auto">
-            <Nav.Link>Prices</Nav.Link>
-            <Nav.Link>News</Nav.Link>
-          </Nav>
-          <ButtonToolbar>
+    <Navbar bg="primary" variant="dark" sticky="top">
+      <Container>
+        <Navbar.Brand onClick={this.done}> <i class="fas fa-coins"></i>{' '}180Crypto</Navbar.Brand>
+        <Nav className="mr-auto">
+          <Nav.Link>Prices</Nav.Link>
+          <Nav.Link>News</Nav.Link>
+        </Nav>
+        <ButtonToolbar>
+          {
+            this.state.user
+              ? <Dropdown className="mr-auto">
 
-            <Dropdown className="mr-auto">
+                  <Dropdown.Toggle>
+                    <Button variant="primary">
+                      <i class="far fa-user-circle"></i>
+                    </Button>
+                  </Dropdown.Toggle>
 
-              <Dropdown.Toggle>
-                <Button variant="primary">
-                  <i class="far fa-user-circle"></i>
-                </Button>
-              </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item><Modal_Favorites /></Dropdown.Item>
+                    <Dropdown.Item><Modal_PassChange /></Dropdown.Item>
+                    <Dropdown.Item><Modal_Alerts /></Dropdown.Item>
+                    <Dropdown.Item onClick={this.logout}>Sign Out</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              : <Dropdown className="mr-auto">
 
-              <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
-                <Dropdown.Item as="button" onClick={this.changePassword}>Change Password</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+                  <Dropdown.Toggle>
+                    <Button variant="primary">
+                      <i class="far fa-user-circle"></i>
+                    </Button>
+                  </Dropdown.Toggle>
 
-          </ButtonToolbar>
-        </Container>
-      </Navbar>
+                  <Dropdown.Menu>
+                    <Dropdown.Item href="#/action-2" ><Modal_SignUp testbool_fromparent = {this.state.testbool} callbackFromParent={this.myCallback} />  </Dropdown.Item>
+                    <Dropdown.Item href="#/action-3" ><Modal_SignIn loginSuccess = {this.loginSuccess}/> </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+          }
+
+
+        </ButtonToolbar>
+      </Container>
+    </Navbar>
 
       <Container>
 
@@ -384,13 +445,16 @@ class Cryptocurrency extends React.Component {
                         <Accordion.Toggle as={Button} variant="link" eventKey="0">
                           Description
                         </Accordion.Toggle>
+                        <Accordion.Toggle as={Button} variant="link" style={{float: 'right'}} eventKey="0">
+                          <i class="fas fa-chevron-down"></i>
+                        </Accordion.Toggle>
                       </Card.Header>
                       <Accordion.Collapse eventKey="0">
 
                         <Card.Body>
                             {info.description != null && info.description}
                             <p>{"\n"}</p>
-                            <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                            <Accordion.Toggle as={Button} variant="link" style={{float: 'right'}} eventKey="0">
                               <i class="fas fa-chevron-up"></i>
                             </Accordion.Toggle>
                         </Card.Body>
@@ -401,6 +465,9 @@ class Cryptocurrency extends React.Component {
                       <Card.Header>
                         <Accordion.Toggle as={Button} variant="link" eventKey="1">
                           Links
+                        </Accordion.Toggle>
+                        <Accordion.Toggle as={Button} variant="link" style={{float: 'right'}} eventKey="1">
+                          <i class="fas fa-chevron-down"></i>
                         </Accordion.Toggle>
                       </Card.Header>
                       <Accordion.Collapse eventKey="1">
@@ -415,7 +482,7 @@ class Cryptocurrency extends React.Component {
                             {"\n"}Whitepaper
                           </a>
                           <p>{"\n"}</p>
-                          <Accordion.Toggle as={Button} variant="link" eventKey="1">
+                          <Accordion.Toggle as={Button} variant="link" style={{float: 'right'}} eventKey="1">
 
                             <i class="fas fa-chevron-up"></i>
                           </Accordion.Toggle>

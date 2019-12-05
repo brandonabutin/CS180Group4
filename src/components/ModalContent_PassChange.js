@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './Modal.css';
 import firebase, { auth, provider } from './firebase.js';
+import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 export class ModalContent_PassChange extends Component {
   constructor(props) {
@@ -11,7 +14,7 @@ export class ModalContent_PassChange extends Component {
        pass:'',
        string_test:'this should return a string'
      };
-   } 
+   }
   handleSubmit = (event) =>{
     var user = firebase.auth().currentUser;
     user.updatePassword(this.state.pass).then(function() {
@@ -22,7 +25,7 @@ export class ModalContent_PassChange extends Component {
     alert("New Password too Weak")
 });
 
-    
+
     console.log('password updated');
 
 }
@@ -30,15 +33,15 @@ export class ModalContent_PassChange extends Component {
 
 handleChangeUser  = (event) =>{
     this.setState({user: event.target.value});
-   
+
     console.log(this.state);
     //console.log(event.target.user);
 
   }
 handleChangePass  = (event) =>{
-    
+
     this.setState({pass: event.target.value});
-    console.log(this.state); 
+    console.log(this.state);
     //console.log(event.target.user);
 
   }
@@ -46,22 +49,39 @@ handleChangePass  = (event) =>{
     return ReactDOM.createPortal(
 
       <React.Fragment>
-      <div className = "backdrop"> 
+      <div className = "backdrop">
       </div>
-        <div className="primary" >
-          <button className="close-button" onClick={this.props.closeModal}>
-            close
-          </button>
-          <div className="div-title"> Change Password</div>
-          <div className="secondary" >
-          <form onSubmit={this.handleSubmit}>
-          New Password:
-          <input type="text" value={this.state.pass}   onChange={this.handleChangePass}/><br/>
-          <input type="submit" value="Submit" />
-          
-          
-          </form>    
-        </div>      
+        <div className="mx-auto float" >
+        <Card className="mx-auto" border="primary" style={{
+            width: '35rem'
+          }}>
+          <Card.Header className ="pt-3">
+            <span style={{
+                fontWeight: "bold",
+                fontSize: 25
+              }}>
+            Change Password
+          </span>
+            <Button variant="link" style={{float: 'right'}} onClick={this.props.closeModal} >
+              <i class="fas fa-times"></i>
+            </Button>
+          </Card.Header>
+
+          <Card.Body>
+            <Form onSubmit={this.handleSubmit}>
+
+              <Form.Group controlId="formBasicPassword">
+                <Form.Label>New Password</Form.Label>
+                <Form.Control type="password" value={this.state.pass} onChange={this.handleChangePass} placeholder="Password"/>
+                <Form.Text className="text-muted">Please enter a secure password.</Form.Text>
+              </Form.Group>
+
+              <Button className = ""variant="primary" type="submit" onSubmit={this.handleSubmit} style={{float: 'right'}}>
+                Submit
+              </Button>
+              </Form>
+            </Card.Body>
+          </Card>
         </div>
        </React.Fragment>,
       document.body

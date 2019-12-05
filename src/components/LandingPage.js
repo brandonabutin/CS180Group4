@@ -16,12 +16,12 @@ import firebase, {auth, provider} from './firebase.js';
 import ListButton from './ListButton'
 import FooterPage from './FooterPage'
 
-import Modal_SignUp from './Modal_SignUp.js';
 import ModalContent_SignUp from './ModalContent_SignUp.js';
 
 import Modal_SignIn from './Modal_SignIn.js';
+import Modal_SignUp from './Modal_SignUp.js';
 
-import ModalContent_PassChange from './ModalContent_PassChange.js';
+
 import Modal_PassChange from './Modal_PassChange.js';
 
 import Modal_Favorites from './Modal_Favorites.js';
@@ -175,11 +175,10 @@ class LandingPage extends Component {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                      <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
-                       <Dropdown.Item><Modal_Favorites /></Dropdown.Item>
-                      <Dropdown.Item href="#/action-2" ><Modal_PassChange /></Dropdown.Item>
-                      <Dropdown.Item href="#/action-2" ><Modal_Alerts /></Dropdown.Item>
-                      <Dropdown.Item href="#/action-3" onClick={this.logout}>Sign Out</Dropdown.Item>
+                      <Dropdown.Item><Modal_Favorites /></Dropdown.Item>
+                      <Dropdown.Item><Modal_PassChange /></Dropdown.Item>
+                      <Dropdown.Item><Modal_Alerts /></Dropdown.Item>
+                      <Dropdown.Item onClick={this.logout}>Sign Out</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
                 : <Dropdown className="mr-auto">

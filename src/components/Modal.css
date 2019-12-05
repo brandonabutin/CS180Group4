@@ -15,7 +15,6 @@
     left:500px;
     width:700px;
     height:500px;
-    background-color:white;
     opacity:1;
     z-index:1002;
     margin:auto;
@@ -27,8 +26,22 @@
    display: inline-block;
 }
 
+.float{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index:1001;
+  transform: translate(-50%, -50%);
+}
+
+.headerText{
+  font-size: 20;
+  font-weight: "bold";
+}
+
+
 .secondary{
-  
+
   background-color:#ccddff;
   margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
   border: 1px solid #888;
@@ -45,7 +58,7 @@
 .close-button{
   border-radius: 8px;
   font-size: 16px;
-  background-color: #e7e7e7; 
+  background-color: #e7e7e7;
   color: black;
   position:absolute;
   top:5%;
@@ -68,7 +81,7 @@
 .generic-button{
   border-radius: 8px;
   font-size: 16px;
-  background-color: #e7e7e7; 
+  background-color: #e7e7e7;
   color: black;
 
 }
@@ -84,7 +97,7 @@ input {
 input[type=submit]{
   border-radius: 8px;
   font-size: 16px;
-  background-color: #e7e7e7; 
+  background-color: #e7e7e7;
   color: black;
   width:20%
 

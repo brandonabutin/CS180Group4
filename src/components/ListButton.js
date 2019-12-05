@@ -57,7 +57,7 @@ class Displaylist extends Component{
   }
 
   renderCurrency(currency,index){
-    
+
     return(
     <tr key={index} >
      <td><Link to= {{pathname:"/cryptocurrency",
@@ -109,7 +109,7 @@ class Displaylist extends Component{
       <th>Name</th>
       <th>Price</th>
       <th>Market Cap</th>
-      <th>Notifications</th>
+      <th>Follow</th>
     </tr>
     </thead>
     <tbody>

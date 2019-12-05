@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './Modal.css';
-import firebase, { auth, provider } from './firebase.js';
 import RemoveButton from './RemoveButton'
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 
 
 
@@ -10,13 +11,13 @@ export class ModalContent_Alerts extends Component {
   constructor(props) {
      super(props);
      this.state = {
- 		
+
      };
 
-   } 
-  
+   }
+
   renderFavorites(value,index){
-    
+
     return(
     <tr>
       <td>{value}</td>
@@ -31,19 +32,27 @@ export class ModalContent_Alerts extends Component {
        <React.Fragment>
       <div className = "backdrop">
       </div>
-        <div className="primary" > 
-        <button className="close-button" onClick={this.props.closeModal}>
-            close
-          </button>
-          <div className = "div-title">Alerts</div>
-        <div className="secondary">
-          
-          <div>
-          	- Bitcoin price has increased 1.2%
-          	{console.log(this.props.currencyList)}
+        <div className="mx-auto float" >
+        <Card className="mx-auto" border="primary" style={{
+            width: '35rem'
+          }}>
+          <Card.Header className ="pt-3">
+            <span style={{
+                fontWeight: "bold",
+                fontSize: 25
+              }}>
+            Price Alerts
+          </span>
+            <Button variant="link" style={{float: 'right'}} onClick={this.props.closeModal} >
+              <i class="fas fa-times"></i>
+            </Button>
+          </Card.Header>
+
+          <Card.Body>
+            - Bitcoin price has increased 1.2%
             {this.props.currencyList.map(this.renderFavorites)}
-          </div>    
-        </div>
+          </Card.Body>
+          </Card>
         </div>
        </React.Fragment>,
       document.body
