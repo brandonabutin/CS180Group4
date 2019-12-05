@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ModalContent_Alerts from './ModalContent_Alerts.js';
 import firebase, { auth, provider } from './firebase.js';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 
 
@@ -40,7 +41,7 @@ closeModal = () => {
     return (
 
     <React.Fragment>
-        {this.state.init?<button onClick={this.showModal} style={{color:'red'}} >Alert</button>:<button onClick={this.showModal}>Alert</button>}
+        {this.state.init?<p onClick={this.showModal} style={{color:'red'}}>Alert</p>:<p onClick={this.showModal}>Alert</p>}
         {this.state.isShown?<ModalContent_Alerts closeModal={this.closeModal} currencyList={this.state.currencyList} />:<React.Fragment/>}
       </React.Fragment>
   	)

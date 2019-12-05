@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ModalContent_Favorites from './ModalContent_Favorites.js';
 import firebase, { auth, provider } from './firebase.js';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 
 
@@ -23,13 +24,13 @@ showModal = () => {
     var update_key = split1[0].concat(split2[0]);
     var data_read;
     //read exsiting first, push to favorites list and update
-    firebase.database().ref(update_key + '/favorites').once('value', 
+    firebase.database().ref(update_key + '/favorites').once('value',
        (snapshot)=>{
-            data_read = snapshot.val();    
+            data_read = snapshot.val();
              this.setState({
 	      		currencyList:data_read
     		});
-       } 
+       }
     );
 	}
     this.setState({ isShown: true});
@@ -46,7 +47,7 @@ closeModal = () => {
     return (
 
     <React.Fragment>
-        <button onClick={this.showModal} >Favorites</button>
+        <p onClick={this.showModal} >Favorites</p>
         {this.state.isShown?<ModalContent_Favorites closeModal={this.closeModal} currencyList={this.state.currencyList} />:<React.Fragment/>}
       </React.Fragment>
   	)

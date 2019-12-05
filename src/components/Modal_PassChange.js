@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ModalContent_PassChange from './ModalContent_PassChange.js';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 
 
@@ -10,7 +11,7 @@ export class Modal extends Component {
     this.state = {
       isShown: false
     };
-  } 
+  }
 
 showModal = () => {
     this.setState({ isShown: true });
@@ -28,7 +29,7 @@ closeModal = () => {
     return (
 
     <React.Fragment>
-        <button onClick={this.showModal} className="modal-button">Change Password</button>
+        <p onClick={this.showModal} className="modal-button">Change Password</p>
         {this.state.isShown?<ModalContent_PassChange closeModal={this.closeModal}/>:<React.Fragment/>}
       </React.Fragment>
   	)

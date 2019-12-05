@@ -7,8 +7,8 @@ import firebase, { auth, provider } from './firebase.js';
 class RemoveButton extends React.Component{
 	constructor(props){
         super(props);
-        this.state ={         
-            name:'',   //stores name of coin to be removed from favorites               
+        this.state ={
+            name:'',   //stores name of coin to be removed from favorites
         };
         this._onButtonClick = this._onButtonClick.bind(this);
     }
@@ -24,9 +24,9 @@ _onButtonClick() {
     var update_key = split1[0].concat(split2[0]);
     var data_read;
     //read exsiting first, push to favorites list and update
-    firebase.database().ref(update_key + '/favorites').once('value', 
+    firebase.database().ref(update_key + '/favorites').once('value',
        (snapshot)=>{
-            data_read = snapshot.val();    
+            data_read = snapshot.val();
             //necessary data is read
             for(var i=data_read.length-1;i>0; i--){
             	if(data_read[i] == this.props.name){
@@ -40,7 +40,7 @@ _onButtonClick() {
                 firebase.database().ref().update(updates);
                 console.log('something has been updated');
                 console.log(update_key);
-       } 
+       }
     );
 	}
 }
@@ -53,11 +53,13 @@ componentDidMount(){
 
 
 render(){
-	
+
 	return(
 		<React.Fragment>
-		
-			<button onClick={this._onButtonClick()} >Remove</button>
+
+				<Button className = "ml-auto" variant="link" onClick={this._onButtonClick()} >
+					<i class="fas fa-minus"></i>
+				</Button>
 			{console.log("remove rendered")}
 			</React.Fragment>
 

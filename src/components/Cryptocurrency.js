@@ -21,9 +21,6 @@ import axios from 'axios';
 import FooterPage from './FooterPage';
 import News from './News';
 
-
-
-
 const options = {
   maintainAspectRatio: true,
   scales: {
@@ -146,8 +143,6 @@ class Cryptocurrency extends React.Component {
   }
   handleChange(e) {
 
-
-
     const numCoins = (e.target.validity.valid) ? e.target.value : this.state.numCoins;
     this.setState({numCoins: numCoins})
 
@@ -163,11 +158,12 @@ class Cryptocurrency extends React.Component {
     this.setState({output2: val})
   }
 
+
   render() {
 
     return (<div id="parent">
 
-      <Navbar bg="primary" variant="dark" sticky="top">
+    <Navbar bg="primary" variant="dark" sticky="top">
         <Container>
           <Navbar.Brand onClick={this.done}> <i class="fas fa-coins"></i>{' '}180Crypto</Navbar.Brand>
           <Nav className="mr-auto">
@@ -384,13 +380,16 @@ class Cryptocurrency extends React.Component {
                         <Accordion.Toggle as={Button} variant="link" eventKey="0">
                           Description
                         </Accordion.Toggle>
+                        <Accordion.Toggle as={Button} variant="link" style={{float: 'right'}} eventKey="0">
+                          <i class="fas fa-chevron-down"></i>
+                        </Accordion.Toggle>
                       </Card.Header>
                       <Accordion.Collapse eventKey="0">
 
                         <Card.Body>
                             {info.description != null && info.description}
                             <p>{"\n"}</p>
-                            <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                            <Accordion.Toggle as={Button} variant="link" style={{float: 'right'}} eventKey="0">
                               <i class="fas fa-chevron-up"></i>
                             </Accordion.Toggle>
                         </Card.Body>
@@ -401,6 +400,9 @@ class Cryptocurrency extends React.Component {
                       <Card.Header>
                         <Accordion.Toggle as={Button} variant="link" eventKey="1">
                           Links
+                        </Accordion.Toggle>
+                        <Accordion.Toggle as={Button} variant="link" style={{float: 'right'}} eventKey="1">
+                          <i class="fas fa-chevron-down"></i>
                         </Accordion.Toggle>
                       </Card.Header>
                       <Accordion.Collapse eventKey="1">
@@ -415,7 +417,7 @@ class Cryptocurrency extends React.Component {
                             {"\n"}Whitepaper
                           </a>
                           <p>{"\n"}</p>
-                          <Accordion.Toggle as={Button} variant="link" eventKey="1">
+                          <Accordion.Toggle as={Button} variant="link" style={{float: 'right'}} eventKey="1">
 
                             <i class="fas fa-chevron-up"></i>
                           </Accordion.Toggle>

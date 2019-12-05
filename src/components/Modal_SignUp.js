@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import ModalContent_SignUp from './ModalContent_SignUp.js';
+import Dropdown from 'react-bootstrap/Dropdown';
+
 
 
 
@@ -27,7 +29,7 @@ closeModal = () => {
     return (
 
     <React.Fragment>
-        <button onClick={this.showModal} className="modal-button">Sign Up</button>
+        <p onClick={this.showModal} className="modal-button">Sign Up</p>
         {this.state.isShown?<ModalContent_SignUp closeModal={this.closeModal}/>:<React.Fragment/>}
       </React.Fragment>
   	)

@@ -1,9 +1,5 @@
-import React, {Component} from 'react';
-import Button from 'react-bootstrap/Button';
+import React from 'react';
 import Card from 'react-bootstrap/Card';
-import CardGroup from 'react-bootstrap/CardGroup';
-import Table from 'react-bootstrap/Table'
-import { Link } from "react-router-dom";
 import axios from 'axios'
 var newsObjectList = [];
 class News extends React.Component {

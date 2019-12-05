@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './Modal.css';
 import firebase, { auth, provider } from './firebase.js';
+import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 
 
@@ -15,7 +18,7 @@ export class ModalContent_SignUp extends Component {
        string_test:'this should return a string'
      };
 
-   } 
+   }
   handleSubmit = (event) =>{
 
     firebase.auth().createUserWithEmailAndPassword(this.state.user, this.state.pass).catch(function(error) {
@@ -57,7 +60,7 @@ export class ModalContent_SignUp extends Component {
    event.preventDefault();
 }
 print_test = (event) =>{
-  
+
   console.log(typeof(event.target.user));
   console.log("no definition");
   console.log(this.props.user);
@@ -68,13 +71,13 @@ print_test = (event) =>{
 }
 handleChangeUser  = (event) =>{
     this.setState({user: event.target.value});
-   
+
     console.log(this.state);
     //console.log(event.target.user);
 
   }
 handleChangePass  = (event) =>{
-    
+
     this.setState({pass: event.target.value});
     console.log(this.state);
     //console.log(event.target.user);
@@ -84,22 +87,45 @@ handleChangePass  = (event) =>{
     return ReactDOM.createPortal(
 
        <React.Fragment>
-      <div className = "backdrop"> 
+      <div className = "backdrop">
       </div>
-        <div className="primary" > 
-        <button class="generic-button" className="close-button" onClick={this.props.closeModal}>
-            close
-          </button>
-          <div className="div-title">Sign Up</div>
-        <div className="secondary">
-          <form onSubmit={this.handleSubmit}>
-          User:
-          <input type="text" value={this.state.user}   onChange={this.handleChangeUser} /><br/>
-          Password:
-          <input type="text" value={this.state.pass}   onChange={this.handleChangePass}/><br/>
-          <input type="submit" value="Submit" />
-          </form>    
-        </div>
+        <div className="mx-auto float" >
+        <Card className="mx-auto" border="primary" style={{
+            width: '35rem'
+          }}>
+          <Card.Header className ="pt-3">
+            <span style={{
+                fontWeight: "bold",
+                fontSize: 25
+              }}>
+            Sign Up
+          </span>
+            <Button variant="link" style={{float: 'right'}} onClick={this.props.closeModal} >
+              <i class="fas fa-times"></i>
+            </Button>
+          </Card.Header>
+
+          <Card.Body>
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Group controlId="formBasicEmail">
+                <Form.Label>Email </Form.Label>
+                <Form.Control type="email" value={this.state.user} onChange={this.handleChangeUser} placeholder="Email"/>
+
+              </Form.Group>
+
+              <Form.Group controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" value={this.state.pass} onChange={this.handleChangePass} placeholder="Password"/>
+                <Form.Text className="text-muted">Please enter a secure password.</Form.Text>
+              </Form.Group>
+
+              <Button className = ""variant="primary" type="submit" onSubmit={this.handleSubmit} style={{float: 'right'}}>
+                Create account
+              </Button>
+
+              </Form>
+            </Card.Body>
+          </Card>
         </div>
        </React.Fragment>,
       document.body
