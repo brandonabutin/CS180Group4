@@ -38,7 +38,7 @@ closePass = () => {
 
 
   render() {
-    //return <ModalTrigger triggerText={this.props.modalProps.triggerText} /> ;
+   
     return (
 
     <React.Fragment>

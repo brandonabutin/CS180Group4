@@ -30,7 +30,7 @@ closeModal = () => {
 
     <React.Fragment>
         <p onClick={this.showModal} className="modal-button">Sign Up</p>
-        {this.state.isShown?<ModalContent_SignUp closeModal={this.closeModal}/>:<React.Fragment/>}
+        {this.state.isShown?<ModalContent_SignUp closeModal={this.closeModal} loginSuccess = {this.props.loginSuccess} />:<React.Fragment/>}
       </React.Fragment>
   	)
   }

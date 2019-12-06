@@ -40,18 +40,28 @@ export class ModalContent_SignUp extends Component {
     }
     });
    var user_login = firebase.auth().currentUser;
-   console.log(user_login.email);
+   //console.log(user_login.email);
    if(user_login != null){
+      this.props.loginSuccess();
       var updates = {};
+      var updates_fav = {};
+      var updates_lp = {};
+      var updates_sym = {};
+      var updates_alert = {};
       var split1 = user_login.email.split('@');
       var split2 = split1[1].split('.')
       var update_key = split1[0].concat(split2[0]);
-      updates[update_key] = '';
-      updates[update_key + '/favorites'] = [];
-      updates[update_key + '/favorites_lastprice'] = [];
-      updates[update_key + '/favorites_symbol'] = [];
-      updates[update_key + '/alert'] = false;
+      updates[update_key] = '';    
+      updates_fav[update_key + '/favorites'] = ["TEST"];
+      updates_lp[update_key + '/favorites_price'] = ["TEST"];
+      updates_sym[update_key + '/favorites_symbol'] = ["TEST"];
+      updates_alert[update_key + '/alert'] = false;
+      
       firebase.database().ref().update(updates);
+      firebase.database().ref().update(updates_fav);
+      firebase.database().ref().update(updates_lp);
+      firebase.database().ref().update(updates_sym);
+      firebase.database().ref().update(updates_alert);
       alert('Account Created');
    }
    console.log(this.state.user);

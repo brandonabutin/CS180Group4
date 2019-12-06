@@ -76,10 +76,52 @@ class LandingPage extends Component {
     /* ... */
   }
   logout() {
+    console.log("I'm signing out");
+    //here we will make a call to all favorited coins and log their price at logout
+    var user_login = firebase.auth().currentUser;
+      console.log(user_login.email);
+      if(user_login != null){
+        //create key
+        var updates = {};
+        var split1 = user_login.email.split('@');
+        var split2 = split1[1].split('.')
+        var update_key = split1[0].concat(split2[0]);
+        var data_read;
+        //read exsiting first, push to favorites list and update
+        firebase.database().ref(update_key + '/favorites_symbol').once('value', 
+           (snapshot)=>{
+                
+                data_read = snapshot.val();  
+                var data_to_send = ["TEST"];  
+                for(var i=1;i<data_read.length;i++){ //starts at 1 becuase of test val REMEMBER TO CHANGE THIS LATER OR IT WILL CRASH
+                  fetch('https://min-api.cryptocompare.com/data/price?fsym='+data_read[i]+'&tsyms=USD').then(response => {
+                     return response.json();
+                      }).then(result => {
+                      data_to_send.push(result.USD); 
+                      console.log("pushing data to data_to_send");
+                      console.log("pushing " + result.USD);
+                      console.log(data_to_send);
+                      updates[update_key + '/favorites_price'] = data_to_send;
+                      firebase.database().ref().update(updates);
+                      //this.setState({signout_list: data_to_send});
+                      
+                  });
+                } 
+                console.log(i + "<" + data_read.length);
+                if(i<=data_read.length){
+                //updates[update_key + '/favorites_price'] = data_to_send;
+                //firebase.database().ref().update(updates);
+                console.log('something has been updated price');
+                console.log("attemting to send " + data_to_send);
+                console.log(update_key);
+              }
+           } 
+        );
     auth.signOut().then(() => {
       this.setState({user: null});
     });
   }
+}
   login() {
     auth.signInWithPopup(provider).then((result) => {
       const user = result.user;
@@ -160,8 +202,7 @@ class LandingPage extends Component {
         <Container>
           <Navbar.Brand> <i class="fas fa-coins"></i>{' '}180Crypto</Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link>Prices</Nav.Link>
-            <Nav.Link>News</Nav.Link>
+            
           </Nav>
           <ButtonToolbar>
             {
@@ -190,7 +231,7 @@ class LandingPage extends Component {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                      <Dropdown.Item href="#/action-2" ><Modal_SignUp testbool_fromparent = {this.state.testbool} callbackFromParent={this.myCallback} />  </Dropdown.Item>
+                      <Dropdown.Item href="#/action-2" ><Modal_SignUp testbool_fromparent = {this.state.testbool} callbackFromParent={this.myCallback} loginSuccess = {this.loginSuccess} />  </Dropdown.Item>
                       <Dropdown.Item href="#/action-3" ><Modal_SignIn loginSuccess = {this.loginSuccess}/> </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>

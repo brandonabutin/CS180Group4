@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './Modal.css';
-import RemoveButton from './RemoveButton'
+
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
@@ -17,18 +17,19 @@ export class ModalContent_Alerts extends Component {
    }
 
   renderFavorites(value,index){
-
+   
+    
     return(
     <tr>
       <td>{value}</td>
-      <td><RemoveButton name={value} /></td>
+      <br/>
     </tr>
       )
   }
 
   render() {
     return ReactDOM.createPortal(
-
+       
        <React.Fragment>
       <div className = "backdrop">
       </div>
@@ -49,8 +50,7 @@ export class ModalContent_Alerts extends Component {
           </Card.Header>
 
           <Card.Body>
-            - Bitcoin price has increased 1.2%
-            {this.props.currencyList.map(this.renderFavorites)}
+            {this.props.sendarray.map(this.renderFavorites)}
           </Card.Body>
           </Card>
         </div>

@@ -21,7 +21,7 @@ export class ModalContent_Favorites extends Component {
     return(
     <tr>
       <td>{value}</td>
-      <td className = "mr-auto"><RemoveButton name={value} /></td>
+      <td className = "mr-auto"><RemoveButton Name={value} /></td>
     </tr>
       )
   }

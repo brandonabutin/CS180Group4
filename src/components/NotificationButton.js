@@ -59,6 +59,19 @@ class NotificationButton extends React.Component{
                 console.log(update_key);
            }
         );
+        firebase.database().ref(update_key + '/favorites_price').once('value',
+           (snapshot)=>{
+                updates = {};
+                data_read = snapshot.val();
+                fetch('https://min-api.cryptocompare.com/data/price?fsym='+this.props.urlsymbol+'&tsyms=USD').then(response => {
+                     return response.json();
+                      }).then(result => {
+                        data_read.push(result.USD);
+                        updates[update_key + '/favorites_price'] = data_read;
+                        firebase.database().ref().update(updates);
+                      });
+           }
+        );
         //console.log(data_read);
         //write
 
